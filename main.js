@@ -39,7 +39,7 @@
 			left       : (e.clientX+1) + 'px'
 		});
 		tooltip.id = 'diviTooltip';
-		tooltip.innerHTML = btc + " BTC = $ " + price + " USD";
+		tooltip.innerHTML = btc + " BTC = $ " + price.toFixed(3) + " USD";
 		document.body.appendChild(tooltip);
 	}
 
