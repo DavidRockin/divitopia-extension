@@ -1,5 +1,3 @@
-(function() {
-
 	var prices        = null,
 		activeTooltip = null,
 		toolTips      = [],
@@ -15,6 +13,10 @@
 			'table#markethistory tbody tr.history-Sell td:nth-child(5)',
 			'table#currencyData-BTC tbody tr td:nth-last-child(-n+5)'
 		].join(', ')
+	;
+
+	var mouseX = 0,
+		mouseY = 0
 	;
 
 	function fetchPrices() {
@@ -49,21 +51,26 @@
 		return browser.extension.getURL(url);
 	}
 
-	function calculateOffsetX(e, width) {
-		var x = e.clientX + 5;
+	function calculateOffsetX(clientX, width) {
+		var x = clientX + 5;
 		return (x+width > window.innerWidth ? window.innerWidth - width - 20: x);
 	}
 
-	function calculateOffsetY(e, height) {
-		var y = e.clientY + 1;
+	function calculateOffsetY(clientY, height) {
+		var y = clientY + 1;
 		return (y+height > window.innerHeight ? y - height : y);
 	}
 
-	function showTooltip(e) {
-		trigger = e;
-		var btc = parseFloat(e.target.innerText);
+	function openTooltip(price, x, y, forceActive) {
+		var tooltip  = document.createElement('div'),
+			x        = x || mouseX,
+			y        = y || mouseY
+			forceActive = forceActive || false
+		;
 
-		var tooltip  = document.createElement('div');
+		var active = document.getElementById(tooltipId + '-popup-active');
+		if (null !== active) active.remove();
+
 		Object.assign(tooltip.style, {
 			background : '#dddd',
 			border     : '1px solid #999',
@@ -79,28 +86,46 @@
 			'-webkit-box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)',
 			'box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)'
 		});
-		tooltip.id = tooltipId + "-popup";
+		tooltip.id = tooltipId + "-popup" + (forceActive ? "-active" : "");
 		tooltip.innerHTML = '<h2 style="font-size:14pt;margin-top:0px;padding-top:0px;">' +
 								'<a href="' + diviURL + '" style="outline:0;text-decoration:none !important;border:0;color:#000" target="_blank">' +
 									'<img src="' + getImage('resources/icon-divi.svg') +
 										'" style="height:12.5pt;max-width:auto;margin-top:-5px;" /> The Divi Project' +
 							'</a></h2>';
 		currencies.forEach((c) => {
-			tooltip.innerHTML += c + ": " + prices[c].symbol + ' ' + (btc*prices[c].last).toFixed(3) + '<br />';
+			tooltip.innerHTML += c + ": " + prices[c].symbol + ' ' + (price*prices[c].last).toFixed(3) + '<br />';
 		});
-		tooltip.innerHTML += '<h4 style="font-size:12pt;font-weight:bold">Crypto Made Easy</h4>';
+		tooltip.innerHTML += '<h4 style="font-size:12pt;font-weight:bold;color:#333">Crypto Made Easy</h4>';
+
+		if (forceActive) {
+			tooltip.addEventListener("mouseleave", (e) => {
+				e.target.remove();
+			});
+		}
 
 		document.body.appendChild(tooltip);
 
-		tooltip.style.top  = calculateOffsetY(e, tooltip.getBoundingClientRect().height) + 'px';
-		tooltip.style.left = calculateOffsetX(e, tooltip.getBoundingClientRect().width)  + 'px';
+		tooltip.style.top  = calculateOffsetY(y, tooltip.getBoundingClientRect().height) + 'px';
+		tooltip.style.left = calculateOffsetX(x, tooltip.getBoundingClientRect().width)  + 'px';
 
 		tooltip.style.visibility = '';
 
-		toolTips.push(tooltip);
+		if (!forceActive) {
+			toolTips.push(tooltip);
+		}
 		activeTooltip = tooltip;
 	}
 
+	function showTooltip(e) {
+		trigger = e;
+		openTooltip(
+			parseFloat(e.target.innerText),
+			e.clientX,
+			e.clientY
+		);
+	}
+
+(function() {
 	fetchPrices();
 
 	document.addEventListener('mouseenter', (e) => {
@@ -113,6 +138,11 @@
 		reset = setTimeout(removeTooltip, 50);
 	}, true);
 
+	document.addEventListener('mousemove', (e) => {
+		mouseX = e.pageX;
+		mouseY = e.pageY;
+	});
+
 	setInterval(() => {
 		try {
 			removeTooltip();
@@ -124,4 +154,5 @@
 			e.classList.add(tooltipId);
 		});
 	}, 1000, 100);
+
 })();

@@ -1,7 +1,9 @@
 (function() {
 
-	var menu = (typeof browser === 'undefined' ? chrome.contextMenus : browser.menus);
-	var version = (typeof browser === 'undefined' ? chrome.runtime : browser.runtime).getManifest().version;
+	var isFirefox = typeof browser !== 'undefined',
+		base      = (isFirefox  ? browser : chrome),
+		menu      = base.contextMenus
+	;
 
 	menu.create({
 		id      : 'convert-selected',
@@ -11,15 +13,17 @@
 
 	menu.create({
 		id       : 'version',
-		title    : 'v' + version,
+		title    : 'v' + base.runtime.getManifest().version,
 		enabled  : false,
 		contexts : ['selection'] //, 'link', 'editable']
 	});
 
 	menu.onClicked.addListener((info, tab) => {
-		if (info.menuItemId != 'convert-selected')
+		if (info.menuItemId != 'convert-selected' || parseFloat(info.selectionText) != info.selectionText)
 			return;
-		alert(info.selectionText);
+		base.tabs.executeScript(tab.id, {
+			code : 'openTooltip(' + parseFloat(info.selectionText) + ', null, null, true);'
+		});
 	});
 
 })();
