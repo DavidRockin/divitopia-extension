@@ -48,6 +48,16 @@
 		return browser.extension.getURL(url);
 	}
 
+	function calculateOffsetX(e, width) {
+		var x = e.clientX + 5;
+		return (x+width > window.innerWidth ? window.innerWidth - width - 20: x);
+	}
+
+	function calculateOffsetY(e, height) {
+		var y = e.clientY + 1;
+		return (y+height > window.innerHeight ? y - height : y);
+	}
+
 	function showTooltip(e) {
 		trigger = e;
 		var btc = parseFloat(e.target.innerText);
@@ -58,12 +68,12 @@
 			border     : '1px solid #999',
 			position   : 'absolute',
 			'z-index'  : 99999999999,
-			top        : (e.clientY+1) + 'px',
-			left       : (e.clientX+1) + 'px',
 			'text-align' : 'center',
 			padding      : '9px 22px',
 			color        : '#666',
 			'font-family' : '"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif',
+
+			visibility    : 'hidden',
 
 			'-webkit-box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)',
 			'box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)'
@@ -78,7 +88,13 @@
 			tooltip.innerHTML += c + ": " + prices[c].symbol + ' ' + (btc*prices[c].last).toFixed(3) + '<br />';
 		});
 		tooltip.innerHTML += '<h4 style="font-size:12pt;font-weight:bold">Crypto Made Easy</h4>';
+
 		document.body.appendChild(tooltip);
+
+		tooltip.style.top  = calculateOffsetY(e, tooltip.getBoundingClientRect().height) + 'px';
+		tooltip.style.left = calculateOffsetX(e, tooltip.getBoundingClientRect().width)  + 'px';
+
+		tooltip.style.visibility = '';
 
 		toolTips.push(tooltip);
 		activeTooltip = tooltip;
