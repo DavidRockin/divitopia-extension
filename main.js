@@ -2,7 +2,8 @@
 	var prices        = null,
 		activeTooltip = null,
 		toolTips      = [],
-		trigger       = null
+		trigger       = null,
+		currencies    = ['USD','CAD','AUD','EUR','GBP','CNY']
 	;
 
 	function fetchPrices() {
@@ -32,8 +33,7 @@
 
 	function showTooltip(e) {
 		trigger = e;
-		var btc = e.target.innerText;
-		var price = parseFloat(btc) * (null !== prices ? prices.USD.last : 0);
+		var btc = parseFloat(e.target.innerText);
 
 		var tooltip  = document.createElement('div');
 		Object.assign(tooltip.style, {
@@ -44,14 +44,16 @@
 			top        : (e.clientY+1) + 'px',
 			left       : (e.clientX+1) + 'px',
 			'text-align' : 'center',
-			padding      : '9px 16px'
+			padding      : '9px 22px'
 		});
 		tooltip.id = 'diviTooltip';
 		tooltip.innerHTML = '<h2 style="font-size:14pt;margin-top:0px;padding-top:0px;">' +
 								'<img src="' + browser.extension.getURL('resources/icon.svg') +
-									'" style="max-height:13.5pt;max-width:auto;" /> The Divi Project' +
+									'" style="height:12.5pt;max-width:auto;" /> The Divi Project' +
 							'</h2>';
-		tooltip.innerHTML += btc + " BTC = $ " + price.toFixed(3) + " USD";
+		currencies.forEach((c) => {
+			tooltip.innerHTML += c + ": " + prices[c].symbol + ' ' + (btc*prices[c].last).toFixed(3) + '<br />';
+		});
 		tooltip.innerHTML += '<h4 style="font-size:12pt;">Crypto Made Easy</h4>';
 		document.body.appendChild(tooltip);
 
