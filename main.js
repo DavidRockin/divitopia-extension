@@ -5,6 +5,7 @@
 		trigger       = null,
 		currencies    = ['USD','CAD','AUD','EUR','GBP','CNY'],
 		tooltipId     = '_diviopia-tooltip',
+		diviURL       = 'https://www.diviproject.org/',
 		selectors     = [
 			'tr.currencyData-tradepair td:nth-child(3)',
 			'table#buyorders tbody tr td',
@@ -62,15 +63,17 @@
 			'text-align' : 'center',
 			padding      : '9px 22px',
 			color        : '#666',
+			'font-family' : '"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif',
 
 			'-webkit-box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)',
 			'box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)'
 		});
 		tooltip.id = tooltipId + "-popup";
 		tooltip.innerHTML = '<h2 style="font-size:14pt;margin-top:0px;padding-top:0px;">' +
-								'<img src="' + getImage('resources/icon.svg') +
-									'" style="height:12.5pt;max-width:auto;" /> The Divi Project' +
-							'</h2>';
+								'<a href="' + diviURL + '" style="outline:0;text-decoration:none !important;border:0;color:#000" target="_blank">' +
+									'<img src="' + getImage('resources/icon.svg') +
+										'" style="height:12.5pt;max-width:auto;margin-top:-5px;" /> The Divi Project' +
+							'</a></h2>';
 		currencies.forEach((c) => {
 			tooltip.innerHTML += c + ": " + prices[c].symbol + ' ' + (btc*prices[c].last).toFixed(3) + '<br />';
 		});
