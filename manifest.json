@@ -15,7 +15,9 @@
 	"permissions": [
 		"activeTab",
 		"tabs",
-		"<all_urls>"
+		"<all_urls>",
+		"contextMenus",
+		"menus"
 	],
 
 	"web_accessible_resources": [
@@ -29,5 +31,11 @@
 				"main.js"
 			]
 		}
-	]
+	],
+
+	"background" : {
+		"scripts" : [
+			"contextmenu.js"
+		]
+	}
 }

@@ -1,4 +1,5 @@
 (function() {
+
 	var prices        = null,
 		activeTooltip = null,
 		toolTips      = [],
