@@ -2,7 +2,7 @@
 		activeTooltip = null,
 		toolTips      = [],
 		trigger       = null,
-		currencies    = ['USD','CAD','AUD','EUR','GBP','CNY'],
+		currencies    = ['USD','EUR', 'JPY', 'KRW', 'CAD','AUD','GBP','CNY','RUB'],
 		tooltipId     = '_diviopia-tooltip',
 		diviURL       = 'https://www.diviproject.org/',
 		selectors     = [
@@ -28,6 +28,7 @@
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				prices = JSON.parse(this.responseText);
+				prices.RUB.symbol = ''; // just to clean up things a tad
 			}
 		};
 		xhttp.open("GET", "https://blockchain.info/ticker?cors=true", true);
