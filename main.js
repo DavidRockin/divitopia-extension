@@ -7,11 +7,15 @@
 		diviURL       = 'https://www.diviproject.org/',
 		selectors     = [
 			'tr.currencyData-tradepair td:nth-child(3)',
-			'table#buyorders tbody tr td',
-			'table#sellorders tbody tr td',
+			'table#buyorders tbody tr td:nth-child(2)',
+			'table#buyorders tbody tr td:nth-last-child(-n+2)',
+			'table#sellorders tbody tr td:nth-child(2)',
+			'table#sellorders tbody tr td:nth-last-child(-n+2)',
 			'table#markethistory tbody tr.history-Sell td:nth-child(3)',
 			'table#markethistory tbody tr.history-Sell td:nth-child(5)',
-			'table#currencyData-BTC tbody tr td:nth-last-child(-n+5)'
+			'table#currencyData-BTC tbody tr td:nth-last-child(-n+5)',
+			'#buyprice, #buyfee, #buytotal, #buynettotal, #sellprice, #sellfee, #selltotal, #sellnettotal',
+			'.ticker-basevolume, .ticker-high, .ticker-low, .ticker-last'
 		].join(', ')
 	;
 
@@ -119,7 +123,7 @@
 	function showTooltip(e) {
 		trigger = e;
 		openTooltip(
-			parseFloat(e.target.innerText),
+			parseFloat(e.target.value || e.target.innerText),
 			e.clientX,
 			e.clientY
 		);
