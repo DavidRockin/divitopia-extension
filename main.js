@@ -3,7 +3,15 @@
 		activeTooltip = null,
 		toolTips      = [],
 		trigger       = null,
-		currencies    = ['USD','CAD','AUD','EUR','GBP','CNY']
+		currencies    = ['USD','CAD','AUD','EUR','GBP','CNY'],
+		tooltipId     = '_diviopia-tooltip',
+		selectors     = [
+			'tr.currencyData-tradepair td:nth-child(3)',
+			'table#buyorders tbody tr td',
+			'table#sellorders tbody tr td',
+			'table#markethistory tbody tr.history-Sell td:nth-child(3)',
+			'table#markethistory tbody tr.history-Sell td:nth-child(5)'
+		].join(', ')
 	;
 
 	function fetchPrices() {
@@ -53,7 +61,7 @@
 			'text-align' : 'center',
 			padding      : '9px 22px'
 		});
-		tooltip.id = 'diviTooltip';
+		tooltip.id = tooltipId;
 		tooltip.innerHTML = '<h2 style="font-size:14pt;margin-top:0px;padding-top:0px;">' +
 								'<img src="' + getImage('resources/icon.svg') +
 									'" style="height:12.5pt;max-width:auto;" /> The Divi Project' +
@@ -71,7 +79,7 @@
 	fetchPrices();
 
 	document.addEventListener('mouseenter', (e) => {
-		if (!e.target.classList.contains('_divi'))
+		if (!e.target.classList.contains(tooltipId))
 			return;
 		showTooltip(e);
 	}, true);
@@ -82,10 +90,10 @@
 
 	setInterval(() => {
 		removeTooltip();
-		document.querySelectorAll("tr.currencyData-tradepair td:nth-child(3), table#buyorders tbody tr td, table#sellorders tbody tr td").forEach((e) => {
-			if (e.classList.contains('_divi'))
+		document.querySelectorAll(selectors).forEach((e) => {
+			if (e.classList.contains(tooltipId))
 				return;
-			e.classList.add('_divi');
+			e.classList.add(tooltipId);
 		});
 	}, 1000, 100);
 })();
