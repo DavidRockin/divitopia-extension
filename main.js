@@ -1,7 +1,6 @@
 (function() {
 	var events = [],
-		prices = null,
-		tooltip = null
+		prices = null
 	;
 
 	function fetchPrices() {
@@ -19,17 +18,18 @@
 	function registerEvent(element, type, callback) {
 		if (events.indexOf(element) > -1)
 			return;
-		type.split(',').forEach((t) => {
-			element.addEventListener(t.trim(), callback);
-		});
+		element.addEventListener(type, callback);
 		events.push(element);
 	}
 
 	function showTooltip(e) {
+		var el = document.getElementById('diviTooltip');
+		if (null !== el) el.remove();
+
 		var btc = e.target.innerText;
 		var price = parseFloat(btc) * (null !== prices ? prices.USD.last : 0);
 
-		tooltip  = document.createElement('div');
+		var tooltip  = document.createElement('div');
 		Object.assign(tooltip.style, {
 			background : '#333',
 			border     : '1px solid #999',
@@ -47,12 +47,9 @@
 
 	setInterval(() => {
 		document.querySelectorAll("tr.currencyData-tradepair td:nth-child(3), table#buyorders tbody tr td, table#sellorders tbody tr td").forEach((d) => {
-			registerEvent(d, 'mouseout, mouseenter', (e) => {
-				if (e.type == 'mouseenter') {
-					showTooltip(e);
-				} else if (e.type == 'mouseout') {
-					// tooltip.parentNode.removeChild(tooltip);
-				}
+			registerEvent(d, 'mouseenter', (e) => {
+				console.log(e);
+				showTooltip(e);
 			});
 		});
 	}, 1000, 100);
