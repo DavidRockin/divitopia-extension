@@ -1,6 +1,9 @@
 (function() {
 	var events = [],
-		prices = null
+		prices = null,
+		activeTooltip = null,
+		toolTips      = [],
+		trigger = null
 	;
 
 	function fetchPrices() {
@@ -10,7 +13,7 @@
 				prices = JSON.parse(this.responseText);
 			}
 		};
-		xhttp.open("GET", "https://blockchain.info/ticker?cores=true", true);
+		xhttp.open("GET", "https://blockchain.info/ticker?cors=true", true);
 		xhttp.send();
 	}
 
@@ -20,11 +23,21 @@
 		element.addEventListener(type, callback);
 		events.push(element);
 	}
+	function isHover(e) {
+		return (e.parentElement.querySelector(':hover') === e);
+	}
+	function removeTooltip() {
+		clearInterval(reset);
+		reset = null;
+		toolTips.forEach((e) => {
+			if (e === activeTooltip && isHover(trigger.target))
+				return;
+			e.remove();
+		});
+	}
 
 	function showTooltip(e) {
-		var el = document.getElementById('diviTooltip');
-		if (null !== el) el.remove();
-
+		trigger = e;
 		var btc = e.target.innerText;
 		var price = parseFloat(btc) * (null !== prices ? prices.USD.last : 0);
 
@@ -44,15 +57,29 @@
 		tooltip.innerHTML += btc + " BTC = $ " + price.toFixed(3) + " USD";
 		tooltip.innerHTML += '<h4 style="font-size:12pt;">Crypto Made Easy</h4>';
 		document.body.appendChild(tooltip);
+
+		toolTips.push(tooltip);
+		activeTooltip = tooltip;
 	}
 
 	fetchPrices();
 
+	document.addEventListener('mouseenter', (e) => {
+		if (!e.target.classList.contains('_divi'))
+			return;
+		showTooltip(e);
+	}, true);
+
+	document.addEventListener('mouseout', (e) => {
+		reset = setTimeout(removeTooltip, 50);
+	}, true);
+
 	setInterval(() => {
-		document.querySelectorAll("tr.currencyData-tradepair td:nth-child(3), table#buyorders tbody tr td, table#sellorders tbody tr td").forEach((d) => {
-			registerEvent(d, 'mouseenter', (e) => {
-				showTooltip(e);
-			});
+		removeTooltip();
+		document.querySelectorAll("tr.currencyData-tradepair td:nth-child(3), table#buyorders tbody tr td, table#sellorders tbody tr td").forEach((e) => {
+			if (e.classList.contains('_divi'))
+				return;
+			e.classList.add('_divi');
 		});
 	}, 1000, 100);
 })();
