@@ -1,9 +1,8 @@
 (function() {
-	var events = [],
-		prices = null,
+	var prices        = null,
 		activeTooltip = null,
 		toolTips      = [],
-		trigger = null
+		trigger       = null
 	;
 
 	function fetchPrices() {
@@ -17,15 +16,10 @@
 		xhttp.send();
 	}
 
-	function registerEvent(element, type, callback) {
-		if (events.indexOf(element) > -1)
-			return;
-		element.addEventListener(type, callback);
-		events.push(element);
-	}
 	function isHover(e) {
 		return (e.parentElement.querySelector(':hover') === e);
 	}
+
 	function removeTooltip() {
 		clearInterval(reset);
 		reset = null;
@@ -53,7 +47,10 @@
 			padding      : '9px 16px'
 		});
 		tooltip.id = 'diviTooltip';
-		tooltip.innerHTML = '<h2 style="font-size:14pt;margin-top:0px;padding-top:0px;">The Divi Project</h2>';
+		tooltip.innerHTML = '<h2 style="font-size:14pt;margin-top:0px;padding-top:0px;">' +
+								'<img src="' + browser.extension.getURL('resources/icon.svg') +
+									'" style="max-height:13.5pt;max-width:auto;" /> The Divi Project' +
+							'</h2>';
 		tooltip.innerHTML += btc + " BTC = $ " + price.toFixed(3) + " USD";
 		tooltip.innerHTML += '<h4 style="font-size:12pt;">Crypto Made Easy</h4>';
 		document.body.appendChild(tooltip);

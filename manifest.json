@@ -1,19 +1,25 @@
 {
 	"manifest_version" : 2,
-	"name" : "Bitcoin Price",
+	"name" : "Diviopia",
 	"version" : "1.0",
 
 	"description" : "Bitcoin prices made easy",
 
 	"icons" : {
-		"48" : "resources/icon-48.png"
+		"48" : "resources/icon.svg",
+		"96" : "resources/icon.svg",
+		"128" : "resources/icon.svg"
 	},
 
 	"permissions": [
 		"activeTab",
 		"tabs",
 		"<all_urls>"
-	  ],
+	],
+
+	"web_accessible_resources": [
+		"resources/icon.svg"
+	],
 
 	"content_scripts" : [
 		{
