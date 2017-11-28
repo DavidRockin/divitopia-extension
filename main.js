@@ -85,6 +85,7 @@
 			padding      : '9px 22px',
 			color        : '#666',
 			'font-family' : '"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif',
+			'font-size'   : '12pt',
 
 			visibility    : 'hidden',
 
@@ -92,15 +93,15 @@
 			'box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)'
 		});
 		tooltip.id = tooltipId + "-popup" + (forceActive ? "-active" : "");
-		tooltip.innerHTML = '<h2 style="font-size:14pt;margin-top:0px;padding-top:0px;">' +
+		tooltip.innerHTML = '<h2 style="font-size:11pt;margin-top:0px;padding-top:0px;">' +
 								'<a href="' + diviURL + '" style="outline:0;text-decoration:none !important;border:0;color:#000" target="_blank">' +
 									'<img src="' + getImage('resources/icon-divi.svg') +
-										'" style="height:12.5pt;max-width:auto;margin-top:-5px;" /> The Divi Project' +
+										'" style="height:9.5pt;max-width:auto;margin-top:-3px;" /> The Divi Project' +
 							'</a></h2>';
 		currencies.forEach((c) => {
-			tooltip.innerHTML += c + ": " + prices[c].symbol + ' ' + (price*prices[c].last).toFixed(3) + '<br />';
+			tooltip.innerHTML += '<b>' + c + '</b>: ' + prices[c].symbol + ' ' + (price*prices[c].last).toFixed(3) + '<br />';
 		});
-		tooltip.innerHTML += '<h4 style="font-size:12pt;font-weight:bold;color:#333">Crypto Made Easy</h4>';
+		tooltip.innerHTML += '<h4 style="font-size:10pt;font-weight:bold;color:#333">Crypto Made Easy</h4>';
 
 		if (forceActive) {
 			tooltip.addEventListener("mouseleave", (e) => {
