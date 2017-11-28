@@ -31,6 +31,13 @@
 		});
 	}
 
+	function getImage(url) {
+		if (typeof browser === 'undefined') {
+			return 'chrome-extension://' + chrome.runtime.id + '/' + url;
+		}
+		return browser.extension.getURL(url);
+	}
+
 	function showTooltip(e) {
 		trigger = e;
 		var btc = parseFloat(e.target.innerText);
@@ -48,7 +55,7 @@
 		});
 		tooltip.id = 'diviTooltip';
 		tooltip.innerHTML = '<h2 style="font-size:14pt;margin-top:0px;padding-top:0px;">' +
-								'<img src="' + browser.extension.getURL('resources/icon.svg') +
+								'<img src="' + getImage('resources/icon.svg') +
 									'" style="height:12.5pt;max-width:auto;" /> The Divi Project' +
 							'</h2>';
 		currencies.forEach((c) => {
