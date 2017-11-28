@@ -59,7 +59,10 @@
 			top        : (e.clientY+1) + 'px',
 			left       : (e.clientX+1) + 'px',
 			'text-align' : 'center',
-			padding      : '9px 22px'
+			padding      : '9px 22px',
+
+			'-webkit-box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)',
+			'box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)'
 		});
 		tooltip.id = tooltipId;
 		tooltip.innerHTML = '<h2 style="font-size:14pt;margin-top:0px;padding-top:0px;">' +
@@ -69,7 +72,7 @@
 		currencies.forEach((c) => {
 			tooltip.innerHTML += c + ": " + prices[c].symbol + ' ' + (btc*prices[c].last).toFixed(3) + '<br />';
 		});
-		tooltip.innerHTML += '<h4 style="font-size:12pt;">Crypto Made Easy</h4>';
+		tooltip.innerHTML += '<h4 style="font-size:12pt;font-weight:bold">Crypto Made Easy</h4>';
 		document.body.appendChild(tooltip);
 
 		toolTips.push(tooltip);
