@@ -1,14 +1,15 @@
 {
 	"manifest_version" : 2,
-	"name" : "Diviopia",
-	"version" : "1.0",
+	"name" : "Divitopia",
+	"version" : "1.0.1",
 
 	"description" : "Bitcoin prices made easy",
 
 	"icons" : {
-		"48" : "resources/icon.svg",
-		"96" : "resources/icon.svg",
-		"128" : "resources/icon.svg"
+		"32" : "resources/icon-32.png",
+		"48" : "resources/icon-48.png",
+		"96" : "resources/icon-96.png",
+		"128" : "resources/icon-128.png"
 	},
 
 	"permissions": [
@@ -18,7 +19,7 @@
 	],
 
 	"web_accessible_resources": [
-		"resources/icon.svg"
+		"resources/icon-divi.svg"
 	],
 
 	"content_scripts" : [

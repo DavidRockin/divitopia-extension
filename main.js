@@ -81,7 +81,7 @@
 		tooltip.id = tooltipId + "-popup";
 		tooltip.innerHTML = '<h2 style="font-size:14pt;margin-top:0px;padding-top:0px;">' +
 								'<a href="' + diviURL + '" style="outline:0;text-decoration:none !important;border:0;color:#000" target="_blank">' +
-									'<img src="' + getImage('resources/icon.svg') +
+									'<img src="' + getImage('resources/icon-divi.svg') +
 										'" style="height:12.5pt;max-width:auto;margin-top:-5px;" /> The Divi Project' +
 							'</a></h2>';
 		currencies.forEach((c) => {
