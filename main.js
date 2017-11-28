@@ -10,7 +10,8 @@
 			'table#buyorders tbody tr td',
 			'table#sellorders tbody tr td',
 			'table#markethistory tbody tr.history-Sell td:nth-child(3)',
-			'table#markethistory tbody tr.history-Sell td:nth-child(5)'
+			'table#markethistory tbody tr.history-Sell td:nth-child(5)',
+			'table#currencyData-BTC tbody tr td:nth-last-child(-n+5)'
 		].join(', ')
 	;
 
@@ -33,7 +34,7 @@
 		clearInterval(reset);
 		reset = null;
 		toolTips.forEach((e) => {
-			if (e === activeTooltip && isHover(trigger.target))
+			if (e === activeTooltip && isHover(trigger.target) || isHover(document.getElementById(tooltipId + '-popup')))
 				return;
 			e.remove();
 		});
@@ -60,11 +61,12 @@
 			left       : (e.clientX+1) + 'px',
 			'text-align' : 'center',
 			padding      : '9px 22px',
+			color        : '#666',
 
 			'-webkit-box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)',
 			'box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)'
 		});
-		tooltip.id = tooltipId;
+		tooltip.id = tooltipId + "-popup";
 		tooltip.innerHTML = '<h2 style="font-size:14pt;margin-top:0px;padding-top:0px;">' +
 								'<img src="' + getImage('resources/icon.svg') +
 									'" style="height:12.5pt;max-width:auto;" /> The Divi Project' +
@@ -92,7 +94,10 @@
 	}, true);
 
 	setInterval(() => {
-		removeTooltip();
+		try {
+			removeTooltip();
+		} catch (ex) {
+		}
 		document.querySelectorAll(selectors).forEach((e) => {
 			if (e.classList.contains(tooltipId))
 				return;
