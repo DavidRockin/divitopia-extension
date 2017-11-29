@@ -32,6 +32,7 @@
 					'if (null != text && text != "")' +
 					'openTooltip(parseFloat(text), selectedNode.x,selectedNode.y, true, ["' + currency + '"]);'
 		});
+		window.close();
 	}
 
 	currencies.forEach((c) => {
@@ -43,8 +44,15 @@
 	addSeparator();
 	addItem('Help', (e) => {
 		base.tabs.create({
-			url : base.runtime.getManifest().homepage_url + '/issues'
+			url : base.runtime.getManifest().homepage_url + '/wiki'
 		});
+		window.close();
+	});
+	addItem('The Divi Project', (e) => {
+		base.tabs.create({
+			url : 'https://www.diviproject.org/'
+		});
+		window.close();
 	});
 	addItem('v ' + base.runtime.getManifest().version, null, (e) => {
 		e.classList.add('disabled');
