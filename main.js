@@ -58,19 +58,20 @@
 
 	function calculateOffsetX(clientX, width) {
 		var x = clientX + 5;
-		return (x+width > window.innerWidth ? window.innerWidth - width - 20: x);
+		return (x+width > window.innerWidth ? window.innerWidth - width - 20: x) + window.scrollX;
 	}
 
 	function calculateOffsetY(clientY, height) {
 		var y = clientY + 1;
-		return (y+height > window.innerHeight ? y - height : y);
+		return (y+height > window.innerHeight ? y - height : y) + window.scrollY;
 	}
 
-	function openTooltip(price, x, y, forceActive) {
+	function openTooltip(price, x, y, forceActive, curr) {
 		var tooltip  = document.createElement('div'),
 			x        = x || mouseX,
 			y        = y || mouseY
-			forceActive = forceActive || false
+			forceActive = forceActive || false,
+			currencies  = curr || currencies
 		;
 
 		var active = document.getElementById(tooltipId + '-popup-active');

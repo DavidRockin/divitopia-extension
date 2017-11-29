@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<style type="text/css">
+		html, body {
+			margin:  0px;
+			padding: 0px;
+			background: #EEE;
+		}
+		ul {
+			list-style-type: none;
+			padding: 3px;
+			margin: 0px;
+			width: 200px;
+		}
+		ul li {
+			padding: 3px 9px;
+		}
+		ul li:hover {
+			background: #DDD;
+			cursor: pointer
+		}
+		ul li.separator {
+			height: 1px;
+			margin: 3px 0px;
+			padding: 0px 9px;
+			background: #CCC;
+			cursor: default;
+		}
+		ul li.disabled {
+			color: #c9c9c9;
+		}
+		ul li.disabled:hover {
+			background: none;
+			cursor: default;
+		}
+	</style>
+
+</head>
+<body>
+
+	<ul id="menu"></ul>
+
+	<script type="text/javascript" src="popup.js"></script>
+
+</body>
+</html>
