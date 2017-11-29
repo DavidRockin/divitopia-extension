@@ -1,0 +1,25 @@
+# remove un-needed files
+*.log
+*.tmp
+nbproject/
+bin/
+certs/
+cache/
+Cache/
+logs/
+tmp/
+.sass-cache/
+backups/
+backup.sh
+composer.lock
+/vendor/
+public/assets/
+.vscode/
+
+# windows files
+desktop.ini
+thumbs.db
+
+# keep these files
+!.htaccess
+!.gitkeep
