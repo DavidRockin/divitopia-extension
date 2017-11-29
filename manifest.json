@@ -4,11 +4,6 @@
 	"version" : "1.0.1",
 	"author" : "The Divi Project",
 
-	"developer" : {
-		"name" : "David Tkachuk",
-		"url"  : "https://tkachuk.tech"
-	},
-
 	"homepage_url" : "https://github.com/DavidRockin/divitopia-extension",
 
 	"description" : "Bitcoin prices made easy",

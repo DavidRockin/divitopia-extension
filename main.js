@@ -2,7 +2,7 @@
 		activeTooltip = null,
 		toolTips      = [],
 		trigger       = null,
-		currencies    = ['USD','EUR', 'JPY', 'KRW', 'CAD','AUD','GBP','CNY','RUB'],
+		mainCurrencies    = ['USD','EUR', 'JPY', 'KRW', 'CAD','AUD','GBP','CNY','RUB'],
 		tooltipId     = '_diviopia-tooltip',
 		diviURL       = 'https://www.diviproject.org/',
 		selectors     = [
@@ -66,12 +66,28 @@
 		return (y+height > window.innerHeight ? y - height : y) + window.scrollY;
 	}
 
+	function getSelect() {
+		var selectedNode = window.getSelection().getRangeAt(0).getBoundingClientRect();
+		var text = window.getSelection().toString();
+		if (null != text && text != "")
+			return selectedNode;
+		return {x:null,y:null};
+	}
+
+	function getSelectX() {
+		return getSelect().x;
+	}
+
+	function getSelectY() {
+		return getSelect().y;
+	}
+
 	function openTooltip(price, x, y, forceActive, curr) {
 		var tooltip  = document.createElement('div'),
 			x        = x || mouseX,
 			y        = y || mouseY
 			forceActive = forceActive || false,
-			currencies  = curr || currencies
+			currencies  = curr || mainCurrencies
 		;
 
 		var active = document.getElementById(tooltipId + '-popup-active');

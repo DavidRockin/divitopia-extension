@@ -2,7 +2,7 @@
 
 	var isFirefox  = typeof browser !== 'undefined',
 		base       = (isFirefox  ? browser : chrome),
-		currencies = ['USD','CAD','EUR'],
+		currencies = ['USD','AUD','BRL','CAD','CHF','CLP','CNY','DKK','EUR','GBP','HKD','INR','ISK','JPY','KRW','NZD','PLN','RUB','SEK','SGD','THB','TWD'],
 		menu       = document.getElementById('menu')
 	;
 
@@ -28,7 +28,9 @@
 		var currency = e.target.getAttribute('data-currency');
 		base.tabs.executeScript({
 			code : 'var selectedNode = window.getSelection().getRangeAt(0).getBoundingClientRect();' +
-					'openTooltip(parseFloat(window.getSelection().toString()), selectedNode.x,selectedNode.y, true, ["' + currency + '"]);'
+					'var text = window.getSelection().toString();' +
+					'if (null != text && text != "")' +
+					'openTooltip(parseFloat(text), selectedNode.x,selectedNode.y, true, ["' + currency + '"]);'
 		});
 	}
 

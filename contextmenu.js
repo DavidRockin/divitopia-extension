@@ -22,7 +22,7 @@
 		if (info.menuItemId != 'convert-selected' || parseFloat(info.selectionText) != info.selectionText)
 			return;
 		base.tabs.executeScript(tab.id, {
-			code : 'openTooltip(' + parseFloat(info.selectionText) + ', null, null, true);'
+			code : 'openTooltip(' + parseFloat(info.selectionText) + ', getSelectX(), getSelectY(), true);'
 		});
 	});
 
