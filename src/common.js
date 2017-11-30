@@ -61,13 +61,13 @@ function getImage(url) {
  */
 function calculateOffsetX(clientX, width) {
 	// define the client's X position, add a margin
-	var x = clientX + 15;
+	var x = clientX + 30;
 
 	return (
 		// make sure the tooltip will remain on the screen
 		x + width > window.innerWidth
 		// it will go off, so move it to the left
-		? x - width - 20
+		? x - width - 60
 		// new position is fine as is
 		: x
 
@@ -83,13 +83,13 @@ function calculateOffsetX(clientX, width) {
  */
 function calculateOffsetY(clientY, height) {
 	// define the client's Y position
-	var y = clientY + 6;
+	var y = clientY + 10;
 
 	return (
 		// make sure the height of the tooltip does not go off screen
 		y +height > window.innerHeight
 		// it will go off, so move it upwards
-		? y - height
+		? y - height - 15
 		// new position is fine as is
 		: y
 
