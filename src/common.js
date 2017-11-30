@@ -41,7 +41,7 @@ function fetchPrices() {
  * @return {boolean} True if the element is being hovered, false otherwise
  */
 function isHover(e) {
-	return (e.parentElement.querySelector(':hover') === e);
+	return (null !== e && e.parentElement && e.parentElement.querySelector(':hover') === e);
 }
 
 /**
@@ -50,10 +50,7 @@ function isHover(e) {
  * @param {String} url
  */
 function getImage(url) {
-	if (typeof browser === 'undefined') {
-		return chrome.extension.getURL(url);
-	}
-	return browser.extension.getURL(url);
+	return getBrowser().extension.getURL(url);
 }
 
 /**

@@ -205,7 +205,7 @@ function showTooltip(e) {
 	// create a global mouse enter event listener
 	document.addEventListener('mouseenter', (e) => {
 		// if this element does not contain our tooltip's class, ignore it
-		if (!e.target.classList.contains(tooltipId))
+		if (!e.target.classList || !e.target.classList.contains(tooltipId))
 			return;
 
 		// let's open the tooltip from this element
@@ -236,7 +236,7 @@ function showTooltip(e) {
 		// find all elements matching our selectors
 		document.querySelectorAll(selectors).forEach((e) => {
 			// ensure this element has not been marked yet
-			if (e.classList.contains(tooltipId))
+			if (!e.classList || e.classList.contains(tooltipId))
 				return;
 
 			// add the class to the element
