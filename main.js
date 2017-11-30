@@ -57,12 +57,12 @@
 	}
 
 	function calculateOffsetX(clientX, width) {
-		var x = clientX + 5;
-		return (x+width > window.innerWidth ? window.innerWidth - width - 20: x) + window.scrollX;
+		var x = clientX + 15;
+		return (x+width > window.innerWidth ? x - width - 20: x) + window.scrollX;
 	}
 
 	function calculateOffsetY(clientY, height) {
-		var y = clientY + 1;
+		var y = clientY + 6;
 		return (y+height > window.innerHeight ? y - height : y) + window.scrollY;
 	}
 
