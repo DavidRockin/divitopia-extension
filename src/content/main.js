@@ -50,6 +50,20 @@ var mouseX = 0,
 ;
 
 /**
+ * Lock tooltips being opened
+ *
+ * This will prevent any elements opening the tooltip, if a tooltip
+ * has already been opened from a context menu. It can only be reset
+ * if the user moves the cursor.
+ *
+ * When a context menu is used to convert a price, the moment it disappears
+ * and if the cursor is above a triggerable price, it will enter it and
+ * cause it to open, removing the original tooltip. This will ensure that
+ * no new tooltips will open until the user moves the mouse.
+ */
+var lockTrigger = false;
+
+/**
  * Remove the active tooltip
  */
 function removeTooltip() {
@@ -163,6 +177,9 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies) {
 			// remove this target if the mouse leaves the tooltip
 			e.target.remove();
 		});
+
+		// set our lock
+		lockTrigger = true;
 	}
 
 	// append the tooltip to the body!
@@ -189,6 +206,9 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies) {
 function showTooltip(e) {
 	trigger = e;
 
+	// reset our lock
+	lockTrigger = false;
+
 	// open a tooltip, pass along the element's text as the price
 	// and the client's cursor position
 	openTooltip(
@@ -204,6 +224,11 @@ function showTooltip(e) {
 
 	// create a global mouse enter event listener
 	document.addEventListener('mouseenter', (e) => {
+		// if the tooltip trigger has been locked, don't open it when the
+		// mouse enters a triggerable element
+		if (lockTrigger)
+			return;
+
 		// if this element does not contain our tooltip's class, ignore it
 		if (!e.target.classList || !e.target.classList.contains(tooltipId))
 			return;
@@ -223,6 +248,9 @@ function showTooltip(e) {
 		// update our mouse positions
 		mouseX = e.pageX;
 		mouseY = e.pageY;
+
+		// reset our lock
+		lockTrigger = false;
 	});
 
 	// create an interval function every 1s
