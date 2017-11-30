@@ -1,11 +1,10 @@
 {
 	"manifest_version" : 2,
+
 	"name" : "Divitopia",
-	"version" : "1.0.1",
+	"version" : "1.0.2",
 	"author" : "The Divi Project",
-
 	"homepage_url" : "https://github.com/DavidRockin/divitopia-extension",
-
 	"description" : "Bitcoin prices made easy",
 
 	"icons" : {
@@ -31,7 +30,8 @@
 		{
 			"matches" : ["<all_urls>"],
 			"js" : [
-				"main.js"
+				"src/common.js",
+				"src/content/main.js"
 			]
 		}
 	],
@@ -44,12 +44,13 @@
 			"128" : "resources/icon-128.png"
 		},
 		"default_title" : "Divitopia",
-		"default_popup" : "popup.html"
+		"default_popup" : "src/popup/index.html"
 	},
 
 	"background" : {
 		"scripts" : [
-			"contextmenu.js"
+			"src/common.js",
+			"src/background/contextmenu.js"
 		]
 	}
 }

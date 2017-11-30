@@ -1,9 +1,7 @@
 (function() {
 
-	var isFirefox = typeof browser !== 'undefined',
-		base      = (isFirefox  ? browser : chrome),
-		menu      = base.contextMenus
-	;
+	// define browser's context menus
+	var menu = getBrowser().contextMenus;
 
 	// create a context menu link for selected text to be converted
 	menu.create({
@@ -15,7 +13,7 @@
 	// create a context menu item for the active version
 	menu.create({
 		id       : 'version',
-		title    : 'v' + base.runtime.getManifest().version,
+		title    : 'v' + getAppVersion(),
 		enabled  : false,
 		contexts : ['selection'] //, 'link', 'editable']
 	});
@@ -27,7 +25,7 @@
 			return;
 
 		// execute the selection tooltip open function
-		base.tabs.executeScript(tab.id, {
+		getBrowser().tabs.executeScript(tab.id, {
 			code : 'openSelectionTooltip();'
 		});
 	});

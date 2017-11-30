@@ -1,8 +1,6 @@
 (function() {
 
-	var isFirefox  = typeof browser !== 'undefined',
-		base       = (isFirefox  ? browser : chrome),
-		currencies = ['USD','AUD','BRL','CAD','CHF','CLP','CNY','DKK','EUR','GBP','HKD','INR','ISK','JPY','KRW','NZD','PLN','RUB','SEK','SGD','THB','TWD'],
+	var currencies = ['USD','AUD','BRL','CAD','CHF','CLP','CNY','DKK','EUR','GBP','HKD','INR','ISK','JPY','KRW','NZD','PLN','RUB','SEK','SGD','THB','TWD'],
 		menu       = document.getElementById('menu')
 	;
 
@@ -65,7 +63,7 @@
 		var currency = e.target.getAttribute('data-currency');
 
 		// call our open selection tooltip function, pass our currency
-		base.tabs.executeScript({
+		getBrowser().tabs.executeScript({
 			code : 'openSelectionTooltip(["' + currency + '"]);'
 		});
 
@@ -86,22 +84,22 @@
 
 	// add a help link
 	addItem('Help', (e) => {
-		base.tabs.create({
-			url : base.runtime.getManifest().homepage_url + '/wiki'
+		getBrowser().tabs.create({
+			url : getHomepage()+ '/wiki'
 		});
 		window.close();
 	});
 
 	// add a homepage link
 	addItem('The Divi Project', (e) => {
-		base.tabs.create({
+		getBrowser().tabs.create({
 			url : 'https://www.diviproject.org/'
 		});
 		window.close();
 	});
 
 	// add a version indicator
-	addItem('v ' + base.runtime.getManifest().version, null, (e) => {
+	addItem('v ' + getAppVersion(), null, (e) => {
 		e.classList.add('disabled');
 	});
 
