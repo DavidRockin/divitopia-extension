@@ -26,18 +26,7 @@ var  diviURL       = 'https://www.diviproject.org/';
 /**
  * Defined element selectors
  */
-var	selectors     = [
-	'tr.currencyData-tradepair td:nth-child(3)',
-	'table#buyorders tbody tr td:nth-child(2)',
-	'table#buyorders tbody tr td:nth-last-child(-n+2)',
-	'table#sellorders tbody tr td:nth-child(2)',
-	'table#sellorders tbody tr td:nth-last-child(-n+2)',
-	'table#markethistory tbody tr.history-Sell td:nth-child(3)',
-	'table#markethistory tbody tr.history-Sell td:nth-child(5)',
-	'table#currencyData-BTC tbody tr td:nth-last-child(-n+5)',
-	'#buyprice, #buyfee, #buytotal, #buynettotal, #sellprice, #sellfee, #selltotal, #sellnettotal',
-	'.ticker-basevolume, .ticker-high, .ticker-low, .ticker-last'
-].join(', ');
+var	selectors     = null;
 
 /**
  * Mouse position coordinates
@@ -219,6 +208,8 @@ function showTooltip(e) {
 }
 
 (function() {
+	fetchWebdata();
+
 	// update our currencies
 	updateCurrencies();
 
@@ -263,6 +254,14 @@ function showTooltip(e) {
 			removeTooltip();
 		} catch (ex) {
 		}
+
+		// check if we have no selectors, try to update
+		if (null === selectors)
+			selectors = getSelectors(window.location);
+
+		// if the selectors didn't match our website, skip
+		if (false === selectors)
+			return;
 
 		// find all elements matching our selectors
 		document.querySelectorAll(selectors).forEach((e) => {

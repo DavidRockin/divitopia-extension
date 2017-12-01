@@ -23,7 +23,7 @@
 	],
 
 	"web_accessible_resources": [
-		"resources/icon-divi.svg"
+		"resources/*"
 	],
 
 	"content_scripts" : [

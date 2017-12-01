@@ -14,6 +14,11 @@ var mainCurrencies = ['USD','EUR', 'JPY', 'KRW', 'CAD','AUD','GBP','CNY','RUB'];
 var availableCurrencies = [];
 
 /**
+ * JSON data of extension's web data for website selectors
+ */
+var webdata = null;
+
+/**
  * Fetch BTC prices
  *
  * We'll send an AJAX request to fetch recent Bitcoin
@@ -40,6 +45,59 @@ function fetchPrices() {
 	// attempt to open and send the request
 	xhttp.open("GET", "https://blockchain.info/ticker?cors=true", true);
 	xhttp.send();
+}
+
+/**
+ * Fetch webdata JSON file
+ */
+function fetchWebdata() {
+	// typical AJAX request
+	var xhttp = new XMLHttpRequest();
+
+	// our xhttp handler
+	xhttp.onreadystatechange = function() {
+		// only deal with valid responses
+		if (this.readyState == 4 && this.status == 200) {
+			// parse our response
+			webdata = JSON.parse(this.responseText);
+		}
+	};
+
+	// attempt to open and send the request
+	xhttp.open("GET", getImage('/resources/web-data.json'), true);
+	xhttp.send();
+}
+
+/**
+ * Fetches a website's selectors based on URL
+ *
+ * @param {String} url Active page URL
+ * @return {null|String|boolean} If no webdata, null is returned.
+ * 								 If there is no match, false is returned.
+ * 								 If there is a match a string of selectors is returned
+ */
+function getSelectors(url) {
+	// if we have no webdata, return null, have to try again later
+	if (null === webdata)
+		return null;
+
+	var section;
+
+	// loop through all config file sections
+	for (var i = 0; i < webdata.length; ++i) {
+		section = webdata[i];
+
+		// go through all URLs
+		for (var j = 0; j < section.urls.length; ++j) {
+			// test the URL, if it matches return our selectors
+			var regexp = new RegExp(section.urls[j], "i");
+			if (regexp.test(url))
+				return section.selectors.join(', ');
+		}
+	}
+
+	// no match return false
+	return false;
 }
 
 /**
