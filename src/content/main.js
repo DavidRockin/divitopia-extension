@@ -85,9 +85,15 @@ function openSelectionTooltip(currency) {
 	if (null === selection.x && null === selection.y)
 		return;
 
+	// make sure the selected text is numerical, extract the first number selected
+	var price      = window.getSelection().toString(),
+		priceParse = price.match(/([0-9.]+)/);
+	if (null == priceParse || null == priceParse[0] || "" == priceParse[0])
+		return;
+
 	// parse the selected text, pass our information and open our tooltip!
 	openTooltip(
-		parseFloat(window.getSelection().toString()),
+		parseFloat(priceParse[0]),
 		selection.x,
 		selection.y,
 		true,
@@ -195,13 +201,19 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies) {
 function showTooltip(e) {
 	trigger = e;
 
+	// make sure the text is numerical, extract the first number selected
+	var price      = e.target.value || e.target.innerText,
+		priceParse = price.match(/([0-9.]+)/);
+	if (null == priceParse || null == priceParse[0] || "" == priceParse[0])
+		return;
+
 	// reset our lock
 	lockTrigger = false;
 
 	// open a tooltip, pass along the element's text as the price
 	// and the client's cursor position
 	openTooltip(
-		parseFloat(e.target.value || e.target.innerText),
+		parseFloat(priceParse[0]),
 		e.clientX,
 		e.clientY
 	);

@@ -20,8 +20,13 @@
 
 	// add an event listener to our menu
 	menu.onClicked.addListener((info, tab) => {
-		// make sure we have to convert selected text and the text is a float
-		if (info.menuItemId != 'convert-selected' || parseFloat(info.selectionText) != info.selectionText)
+		// make sure we have to convert selected text
+		if (info.menuItemId != 'convert-selected')
+			return;
+
+		// make sure the text is numerical, extract the first number selected
+		var price = info.selectionText.match(/([0-9.]+)/);
+		if (null === price || "" == price[0])
 			return;
 
 		// execute the selection tooltip open function
