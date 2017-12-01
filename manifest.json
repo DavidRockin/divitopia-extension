@@ -50,6 +50,7 @@
 	"background" : {
 		"scripts" : [
 			"src/common.js",
+			"src/background/main.js",
 			"src/background/contextmenu.js"
 		]
 	}

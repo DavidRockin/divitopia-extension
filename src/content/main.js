@@ -219,8 +219,8 @@ function showTooltip(e) {
 }
 
 (function() {
-	// fetch out prices
-	fetchPrices();
+	// update our currencies
+	updateCurrencies();
 
 	// create a global mouse enter event listener
 	document.addEventListener('mouseenter', (e) => {
@@ -255,6 +255,9 @@ function showTooltip(e) {
 
 	// create an interval function every 1s
 	setInterval(() => {
+		// periodically update our currencies
+		updateCurrencies();
+
 		try {
 			// remove any tooltips
 			removeTooltip();

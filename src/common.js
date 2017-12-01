@@ -9,6 +9,11 @@ var prices         = null;
 var mainCurrencies = ['USD','EUR', 'JPY', 'KRW', 'CAD','AUD','GBP','CNY','RUB'];
 
 /**
+ * Currencies
+ */
+var availableCurrencies = [];
+
+/**
  * Fetch BTC prices
  *
  * We'll send an AJAX request to fetch recent Bitcoin
@@ -26,6 +31,9 @@ function fetchPrices() {
 			// parse our response
 			prices = JSON.parse(this.responseText);
 			prices.RUB.symbol = ''; // just to clean up things a tad
+
+			// define currencies available
+			availableCurrencies = Object.keys(prices);
 		}
 	};
 
@@ -145,15 +153,52 @@ function getBrowser() {
 }
 
 /**
+ * Get extension runtime object
+ */
+function getRuntime() {
+	return getBrowser().runtime;
+}
+
+/**
  * Get extension's version
  */
 function getAppVersion() {
-	return getBrowser().runtime.getManifest().version;
+	return getRuntime().getManifest().version;
 }
 
 /**
  * Get extension homepage
  */
 function getHomepage() {
-	return getBrowser().runtime.getManifest().homepage_url;
+	return getRuntime().getManifest().homepage_url;
+}
+
+/**
+ * Update client currencies
+ *
+ * We'll send a message to the background services, asking for
+ * recent prices and currencies. We'll then have to update them
+ * locally so it can be used later on.
+ *
+ * This will allow the extension to have a central service
+ * fetching prices, and providing to all tabs with the
+ * extension active within them. We can also update them
+ * periodically for live price conversion.
+ */
+function updateCurrencies() {
+	// send message to fetch new prices
+	getRuntime().sendMessage({
+		action : 'get_prices'
+	}, (msg) => {
+		// update our local variable to the response
+		prices = msg.prices;
+	});
+
+	// send message to fetch new currencies
+	getRuntime().sendMessage({
+		action : 'get_currencies'
+	}, (msg) => {
+		// update our local available currencies
+		availableCurrencies = msg.currencies;
+	});
 }
