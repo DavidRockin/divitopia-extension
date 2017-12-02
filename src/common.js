@@ -19,6 +19,11 @@ var availableCurrencies = [];
 var webdata = null;
 
 /**
+ * Default currencies
+ */
+var defaultCurrencies = mainCurrencies;
+
+/**
  * Fetch BTC prices
  *
  * We'll send an AJAX request to fetch recent Bitcoin
@@ -258,5 +263,6 @@ function updateCurrencies() {
 	}, (msg) => {
 		// update our local available currencies
 		availableCurrencies = msg.currencies;
+		mainCurrencies      = msg.mainCurrencies;
 	});
 }

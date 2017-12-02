@@ -91,6 +91,12 @@ function openSelectionTooltip(currency) {
 	if (null == priceParse || null == priceParse[0] || "" == priceParse[0])
 		return;
 
+	// change our currencies
+	getRuntime().sendMessage({
+		action         : 'set_currencies',
+		mainCurrencies : currency
+	});
+
 	// parse the selected text, pass our information and open our tooltip!
 	openTooltip(
 		parseFloat(priceParse[0]),
@@ -116,7 +122,7 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies) {
 		x          = x || mouseX,
 		y          = y || mouseY
 		forceOpen  = forceOpen || false,
-		currencies = activeCurrencies || mainCurrencies
+		mainCurrencies = activeCurrencies || mainCurrencies
 	;
 
 	// check if we have a forced active tooltip, remove if it exists
@@ -154,7 +160,7 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies) {
 						'</a></h2>';
 
 	// loop through our acceptable currencies,
-	currencies.forEach((c) => {
+	mainCurrencies.forEach((c) => {
 		// append currency to tooltip
 		tooltip.innerHTML += '<b>' + c + '</b>: ' +
 								prices[c].symbol + ' ' +

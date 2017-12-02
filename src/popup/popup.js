@@ -74,7 +74,7 @@
 	// loop through our available currencies
 	currencies.forEach((c) => {
 		// add this currency as a menu item
-		addItem('Convert to ' + c, handleConvert, (e) => {
+		addItem('Convert as ' + c, handleConvert, (e) => {
 			e.setAttribute('data-currency', c);
 		});
 	});

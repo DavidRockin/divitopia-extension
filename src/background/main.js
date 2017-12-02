@@ -9,7 +9,8 @@
 		if (request.action == 'get_currencies') {
 			// send back our available currencies
 			response({
-				currencies : availableCurrencies
+				currencies     : availableCurrencies,
+				mainCurrencies : mainCurrencies || defaultCurrencies
 			});
 
 		// if action is to fetch our prices
@@ -18,6 +19,10 @@
 			response({
 				prices : prices
 			});
+
+		// if we're going to update the main currencies, update it
+		} else if (request.action == "set_currencies") {
+			mainCurrencies = request.mainCurrencies;
 		}
 	});
 
