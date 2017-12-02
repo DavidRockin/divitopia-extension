@@ -23,6 +23,9 @@
 		// if we're going to update the main currencies, update it
 		} else if (request.action == "set_currencies") {
 			mainCurrencies = request.mainCurrencies;
+			getBrowser().storage.local.set({
+				currencies : mainCurrencies
+			});
 		}
 	});
 

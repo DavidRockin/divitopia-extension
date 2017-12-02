@@ -247,14 +247,20 @@ function getHomepage() {
  * fetching prices, and providing to all tabs with the
  * extension active within them. We can also update them
  * periodically for live price conversion.
+ *
+ * @param {Function} callback
  */
-function updateCurrencies() {
+function updateCurrencies(callback) {
+	var callback = callback || (() => {});
+	updateSettings(callback);
+
 	// send message to fetch new prices
 	getRuntime().sendMessage({
 		action : 'get_prices'
 	}, (msg) => {
 		// update our local variable to the response
 		prices = msg.prices;
+		callback('get_prices', msg);
 	});
 
 	// send message to fetch new currencies
@@ -263,6 +269,23 @@ function updateCurrencies() {
 	}, (msg) => {
 		// update our local available currencies
 		availableCurrencies = msg.currencies;
-		mainCurrencies      = msg.mainCurrencies;
+		callback('get_currencies', msg);
+	});
+}
+
+/**
+ * Update our local data from our local storage
+ *
+ * We'll be saving user based currenices using local storage
+ * so we'll have to periodically keep things up to date
+ *
+ * @param {Function} callback
+ */
+function updateSettings(callback) {
+	var callback = callback || (() => {});
+
+	getBrowser().storage.local.get("currencies", (i) => {
+		mainCurrencies = i.currencies || defaultCurrencies;
+		callback('update_currencies', i);
 	});
 }

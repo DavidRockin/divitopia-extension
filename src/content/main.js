@@ -91,12 +91,6 @@ function openSelectionTooltip(currency) {
 	if (null == priceParse || null == priceParse[0] || "" == priceParse[0])
 		return;
 
-	// change our currencies
-	getRuntime().sendMessage({
-		action         : 'set_currencies',
-		mainCurrencies : currency
-	});
-
 	// parse the selected text, pass our information and open our tooltip!
 	openTooltip(
 		parseFloat(priceParse[0]),

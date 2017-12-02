@@ -1,4 +1,4 @@
-(function() {
+function render() {
 
 	var currencies = ['USD','AUD','BRL','CAD','CHF','CLP','CNY','DKK','EUR','GBP','HKD','INR','ISK','JPY','KRW','NZD','PLN','RUB','SEK','SGD','THB','TWD'],
 		menu       = document.getElementById('menu')
@@ -62,20 +62,45 @@
 		// get the selected currency
 		var currency = e.target.getAttribute('data-currency');
 
-		// call our open selection tooltip function, pass our currency
-		getBrowser().tabs.executeScript({
-			code : 'openSelectionTooltip(["' + currency + '"]);'
+		// check if this currency has been selected
+		var index = mainCurrencies.indexOf(currency);
+
+		// if this currency is selected, remove its active class
+		if (index > -1) {
+			e.target.classList.remove('active');
+			mainCurrencies.splice(index, 1);
+
+		// otherwise we need to being using this currency
+		} else {
+			e.target.classList.add('active');
+			mainCurrencies.push(currency);
+		}
+
+		// change our currencies
+		getRuntime().sendMessage({
+			action         : 'set_currencies',
+			mainCurrencies : mainCurrencies
 		});
 
-		// close the popup window
-		window.close();
+		// call our open selection tooltip function, pass our currency
+		//getBrowser().tabs.executeScript({
+		//	code : 'openSelectionTooltip(["' + currency + '"]);'
+		//});
 	}
+
+	// add a label
+	addItem('Display currencies:', null, (e) => {
+		e.classList.add('disabled');
+		e.classList.add('label');
+	});
 
 	// loop through our available currencies
 	currencies.forEach((c) => {
 		// add this currency as a menu item
-		addItem('Convert as ' + c, handleConvert, (e) => {
+		addItem('Convert to ' + c, handleConvert, (e) => {
 			e.setAttribute('data-currency', c);
+			if (mainCurrencies.indexOf(c) > -1)
+				e.classList.add('active');
 		});
 	});
 
@@ -103,4 +128,8 @@
 		e.classList.add('disabled');
 	});
 
+};
+
+(function() {
+	updateSettings(render);
 })();

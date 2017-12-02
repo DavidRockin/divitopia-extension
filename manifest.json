@@ -19,7 +19,8 @@
 		"tabs",
 		"<all_urls>",
 		"contextMenus",
-		"menus"
+		"menus",
+		"storage"
 	],
 
 	"web_accessible_resources": [
