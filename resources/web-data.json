@@ -13,7 +13,7 @@
 			"table#markethistory tbody tr.history-Sell td:nth-child(5)",
 			"table#currencyData-BTC tbody tr td:nth-last-child(-n+5)",
 			"#buyprice, #buyfee, #buytotal, #buynettotal, #sellprice, #sellfee, #selltotal, #sellnettotal",
-			".ticker-basevolume, .ticker-high, .ticker-low, .ticker-last",
+			".ticker-basevolume, .ticker-high, .ticker-low, .ticker-last, span#orderbook-total-buy",
 			"div.marketplace-listitem-price, div.marketplace-item-price"
 		]
 	}
