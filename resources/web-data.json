@@ -14,7 +14,7 @@
 			"table#currencyData-BTC tbody tr td:nth-last-child(-n+5)",
 			"#buyprice, #buyfee, #buytotal, #buynettotal, #sellprice, #sellfee, #selltotal, #sellnettotal",
 			".ticker-basevolume, .ticker-high, .ticker-low, .ticker-last, span#orderbook-total-buy",
-			"div.marketplace-listitem-price, div.marketplace-item-price"
+			"div.marketplace-listitem-price, div.marketplace-item-price, a#userBalanceBuy, span.tradepair-basemintrade"
 		]
 	}
 ]
