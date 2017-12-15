@@ -1,11 +1,12 @@
 {
 	"manifest_version" : 2,
 
-	"name" : "Divitopia",
-	"version" : "1.0.2",
+	"name" : "Divitopia Bitcoin Convertor",
+	"short_name" : "Divitopia",
+	"version" : "1.0.3",
 	"author" : "The Divi Project",
 	"homepage_url" : "https://github.com/DavidRockin/divitopia-extension",
-	"description" : "Bitcoin prices made easy",
+	"description" : "Converts Bitcoin values to fiat currencies",
 
 	"icons" : {
 		"32" : "resources/icon-32.png",
@@ -19,7 +20,6 @@
 		"tabs",
 		"<all_urls>",
 		"contextMenus",
-		"menus",
 		"storage"
 	],
 
