@@ -17,5 +17,28 @@
 			"div.marketplace-listitem-price, div.marketplace-item-price, a#userBalanceBuy, span.tradepair-basemintrade",
 			"div#balanceTarget div span.text-success, div#table-balances_wrapper table tbody tr td:nth-child(6)"
 		]
+	},
+	{
+		"urls": [
+			"^https?:\\/\\/(\\w+\\.)?poloniex\\.com\\/"
+		],
+		"selectors": [
+			"div.lastPrice > div.info",
+			"div.high > div.info",
+			"div.low > div.info",
+			"div.volume div.info span.vol1",
+			"form#buyForm input#buyRate, form#buyForm input#buyTotal",
+			"form#stopLimitForm input#stopLimitStopRate, form#stopLimitForm input#stopLimitRate, form#stopLimitForm input#stopLimitTotal",
+			"form#sellForm input#sellRate, form#sellForm input#sellTotal",
+			"div#bidsTotal, div#offersTotal, div#demandsTotal",
+			"table#sellOrderBookTable tbody tr td:nth-last-child(-n+2), table#buyOrderBookTable tbody tr td:nth-last-child(-n+2)",
+			"table#tradeHistoryTable tbody tr td:nth-child(3), table#tradeHistoryTable tbody tr td:nth-child(5)",
+			"div#marketTables table#marketBTC tbody tr td.price",
+			"table#lendingoffersTable tbody tr td:nth-child(2), table#lendingdemandsTable tbody tr td:nth-child(2)",
+			"div.openOrders tbody tr td:nth-child(2), div.openOrders tbody tr td:nth-child(4), table#userTradeHistoryTable tbody tr td:nth-child(3), table#userTradeHistoryTable tbody tr td:nth-child(5)",
+			"div#primaryBalance, div#lowestAsk, div#stopLimitPrimaryBalance, div#highestBid, div#balance, #accountValue_btc",
+			"table#marginBalancesTable tbody tr td:nth-child(2), table#positionsSideTable tbody tr td:nth-child(4)",
+			"table#balancesTable tbody tr td.value"
+		]
 	}
 ]
