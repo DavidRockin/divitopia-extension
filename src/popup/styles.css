@@ -1,0 +1,46 @@
+html, body {
+	margin:  0px;
+	padding: 0px;
+	background: #EEE;
+	overflow-x: hidden;
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 8.75pt;
+}
+ul {
+	list-style-type: none;
+	padding: 3px;
+	margin: 0px;
+	width: 200px;
+}
+ul li {
+	padding: 2px 9px;
+	-webkit-transition: all 222ms ease;
+	-moz-transition: all 222ms ease;
+	-ms-transition: all 222ms ease;
+	-o-transition: all 222ms ease;
+	transition: all 222ms ease;
+}
+ul li:hover {
+	background: #DDD;
+	cursor: pointer
+}
+ul li.active {
+	background: #CCC;
+}
+ul li.separator {
+	height: 1px;
+	margin: 3px 0px;
+	padding: 0px 9px;
+	background: #CCC;
+	cursor: default;
+}
+ul li.label {
+	font-style: italic;
+}
+ul li.disabled {
+	color: #999;
+}
+ul li.disabled:hover {
+	background: none;
+	cursor: default;
+}
