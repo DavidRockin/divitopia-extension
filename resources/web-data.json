@@ -40,5 +40,20 @@
 			"table#marginBalancesTable tbody tr td:nth-child(2), table#positionsSideTable tbody tr td:nth-child(4)",
 			"table#balancesTable tbody tr td.value"
 		]
+	},
+	{
+		"urls": [
+			"^https?:\\/\\/(\\w+\\.)?binance\\.com\\/"
+		],
+		"selectors": [
+			"div#askScrollBox table.askTable tbody tr td:nth-child(odd), div#bidScrollBox table.bidTable tbody tr td:nth-child(odd)",
+			"strong.ng-binding",
+			"div#tradeHistory table.table tbody tr td:nth-child(1)",
+			"div.market-con ul.ng-scope li.ng-binding:nth-child(3)",
+			"form[name='buyForm'] input#buyPrice, form[name='buyForm'] input.readonly",
+			"form[name='sellForm'] input#sellPrice, form[name='sellForm'] input.readonly",
+			"form[name='stopBuyForm'] input#buy_stopPrice, form[name='stopBuyForm'] input#stop_curPrice, form[name='stopBuyForm'] input.readonly",
+			"form[name='stopSellForm'] input#stopSell_StopPrice, form[name='stopSellForm'] input#stopSell_curPrice, form[name='stopSellForm'] input.readonly"
+		]
 	}
 ]
