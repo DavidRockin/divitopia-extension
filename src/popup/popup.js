@@ -16,7 +16,7 @@ function render() {
 		var l = document.createElement('li');
 
 		// define the element's inner text
-		l.innerText = text;
+		l.innerText = text.toString();
 
 		// if we have a callback, assign to the element
 		if (null !== callback)
@@ -97,7 +97,7 @@ function render() {
 	// loop through our available currencies
 	currencies.forEach((c) => {
 		// add this currency as a menu item
-		addItem('Convert to ' + c, handleConvert, (e) => {
+		addItem(prices[c].name + ' (' + c + ')', handleConvert, (e) => {
 			e.setAttribute('data-currency', c);
 			if (mainCurrencies.indexOf(c) > -1)
 				e.classList.add('active');
@@ -131,5 +131,9 @@ function render() {
 };
 
 (function() {
-	updateSettings(render);
+	updateCurrencies((action, data) => {
+		if (action == 'get_prices') {
+			render();
+		}
+	});
 })();
