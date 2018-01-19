@@ -332,6 +332,7 @@ function handleAlertTrigger(e) {
 			'% of the original asking price',
 		null, null, true
 		);
+		return true;
 	}
 }
 
@@ -348,7 +349,9 @@ function handleAlertTrigger(e) {
 		if (lockTrigger)
 			return;
 
-		handleAlertTrigger(e);
+		// trigger the alert handler and skip the rest if its active
+		if (handleAlertTrigger(e))
+			return;
 
 		// if this element does not contain our tooltip's class, ignore it
 		if (!e.target.classList || !e.target.classList.contains(tooltipId))
@@ -358,6 +361,7 @@ function handleAlertTrigger(e) {
 		showTooltip(e);
 	}, true);
 
+	// handle fields that have been updated
 	document.addEventListener('change', (e) => {
 		handleAlertTrigger(e);
 	});
