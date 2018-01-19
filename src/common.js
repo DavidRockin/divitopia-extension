@@ -82,27 +82,49 @@ function fetchWebdata() {
  * 								 If there is a match a string of selectors is returned
  */
 function getSelectors(url) {
+	var section = getWebdata(url);
+
+	if (null === section)
+		return false;
+
+	return section.selectors.join(', ');
+}
+
+function getAlertTriggers(url) {
+	var section = getWebdata(url);
+
+	if (null === section || !section.alerts)
+		return false;
+
+	return section.alerts;
+}
+
+/**
+ * Gets website specific data
+ *
+ * @param {String} url
+ */
+function getWebdata(url) {
 	// if we have no webdata, return null, have to try again later
 	if (null === webdata)
 		return null;
 
-	var section;
+	var sect;
 
 	// loop through all config file sections
 	for (var i = 0; i < webdata.length; ++i) {
-		section = webdata[i];
+		sect = webdata[i];
 
 		// go through all URLs
-		for (var j = 0; j < section.urls.length; ++j) {
+		for (var j = 0; j < sect.urls.length; ++j) {
 			// test the URL, if it matches return our selectors
-			var regexp = new RegExp(section.urls[j], "i");
+			var regexp = new RegExp(sect.urls[j], "i");
 			if (regexp.test(url))
-				return section.selectors.join(', ');
+				return sect;
 		}
 	}
 
-	// no match return false
-	return false;
+	return null;
 }
 
 /**
@@ -288,4 +310,15 @@ function updateSettings(callback) {
 		mainCurrencies = i.currencies || defaultCurrencies;
 		callback('update_currencies', i);
 	});
+}
+
+function getFirstFloat(str) {
+	var regexp = str.match(/([0-9.]+)/);
+	if (null === regexp || null === regexp[0] || '' == regexp[0])
+		return false;
+	return parseFloat(regexp[0]);
+}
+
+function getPriceYield(current, target) {
+	return Math.abs(1 - target/current);
 }

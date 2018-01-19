@@ -19,6 +19,11 @@ var trigger        = null;
 var tooltipId      = 'divitopia-tooltip';
 
 /**
+ * Alert triggerable ID
+ */
+var triggerId      = 'divitopia-alert';
+
+/**
  * Homepage URL
  */
 var  diviURL       = 'https://www.diviproject.org/';
@@ -27,6 +32,12 @@ var  diviURL       = 'https://www.diviproject.org/';
  * Defined element selectors
  */
 var	selectors     = null;
+
+var alerts = null;
+
+var price = 0.0;
+
+const alert_threshold = 0.15;
 
 /**
  * Mouse position coordinates
@@ -194,6 +205,86 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies) {
 }
 
 /**
+ * Opens an alert window
+ *
+ * @param {String}  text Message to display
+ * @param {Number}  x the x position to display the tooltip
+ * @param {Number}  y the y position to display the tooltip
+ * @param {Boolean} forceOpen Force the tooltip to be active and open
+ */
+function openAlert(text, x, y, forceOpen) {
+	// predefine some variables we'll need
+	var tooltip    = document.createElement('div'),
+		x          = x || mouseX,
+		y          = y || mouseY
+		forceOpen  = forceOpen || false
+	;
+
+	// check if we have a forced active tooltip, remove if it exists
+	var active = document.getElementById(tooltipId + '-popup-active');
+	if (null !== active) active.remove();
+
+	// assign specific CSS styles to our new element, tooltip
+	Object.assign(tooltip.style, {
+		background    : '#ef8282',
+		color         : '#170b0b',
+		border        : '1px solid #773a3a',
+
+		position      : 'absolute',
+		padding       : '9px 22px',
+		'z-index'     : 99999999999,
+
+		'text-align'  : 'center',
+		'font-family' : '"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif',
+		'font-size'   : '12pt',
+
+		visibility    : 'hidden',
+
+		'-webkit-box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)',
+		'box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)'
+	});
+
+	// define the ID to the tooltip
+	tooltip.id = tooltipId + "-popup" + (forceOpen ? "-active" : "");
+
+	// append the top logo and title to the tool tip
+	tooltip.innerHTML = '<h2 style="font-size:11pt;margin-top:0px;padding-top:0px;">' +
+							'<a href="' + diviURL + '" style="outline:0;text-decoration:none !important;border:0;color:#000" target="_blank">' +
+								'<img src="' + getImage('resources/icon-divi.svg') +
+									'" style="height:9.5pt;max-width:auto;margin-top:-3px;" /> The Divi Project' +
+						'</a></h2>';
+
+	// append tooltip motto
+	tooltip.innerHTML += text;
+
+	// if the tooltip is to be forced open, add a custom tooltip event listener
+	if (forceOpen) {
+		tooltip.addEventListener("mouseleave", (e) => {
+			// remove this target if the mouse leaves the tooltip
+			e.target.remove();
+		});
+
+		// set our lock
+		lockTrigger = true;
+	}
+
+	// append the tooltip to the body!
+	document.body.appendChild(tooltip);
+
+	// calculate and assign tooltip top and left offsets
+	tooltip.style.top  = calculateOffsetY(y, tooltip.getBoundingClientRect().height) + 'px';
+	tooltip.style.left = calculateOffsetX(x, tooltip.getBoundingClientRect().width)  + 'px';
+
+	// make the tooltip visible
+	tooltip.style.visibility = '';
+
+	if (!forceOpen) {
+		toolTips.push(tooltip);
+	}
+	activeTooltip = tooltip;
+}
+
+/**
  * Trigger tooltip from an element
  *
  * @param {Element} e Element that triggered the tooltip
@@ -219,6 +310,31 @@ function showTooltip(e) {
 	);
 }
 
+/**
+ * Handler for an alert triggerable event
+ *
+ * @param {Element} e Element that triggered this event
+ */
+function handleAlertTrigger(e) {
+	// if this element does not contain our tooltip's class, ignore it
+	if (!e.target.classList || !e.target.classList.contains(triggerId) || !e.target.value)
+		return;
+
+	// parse our numbers
+	var target = parseFloat(e.target.value);
+	var yield  = getPriceYield(price, target);
+
+	// if the potential loss >= threshold, alert the user
+	if (yield >= alert_threshold && target > 0) {
+		openAlert(
+			'<b>Caution</b> You specified a BTC price that is off by<br />' +
+				(yield*100).toFixed(1) +
+			'% of the original asking price',
+		null, null, true
+		);
+	}
+}
+
 (function() {
 	fetchWebdata();
 
@@ -232,6 +348,8 @@ function showTooltip(e) {
 		if (lockTrigger)
 			return;
 
+		handleAlertTrigger(e);
+
 		// if this element does not contain our tooltip's class, ignore it
 		if (!e.target.classList || !e.target.classList.contains(tooltipId))
 			return;
@@ -240,10 +358,16 @@ function showTooltip(e) {
 		showTooltip(e);
 	}, true);
 
+	document.addEventListener('change', (e) => {
+		handleAlertTrigger(e);
+	});
+
 	// create a global mouse out event listener
 	document.addEventListener('mouseout', (e) => {
 		// in 50ms attempt to remove any open tooltips
 		reset = setTimeout(removeTooltip, 50);
+
+		handleAlertTrigger(e);
 	}, true);
 
 	// create a global mouse move event listener
@@ -284,6 +408,31 @@ function showTooltip(e) {
 			// add the class to the element
 			e.classList.add(tooltipId);
 		});
+
+		// get this websites triggerable elements
+		alerts = getAlertTriggers(window.location);
+
+		// make sure we have something
+		if (false !== alerts && null !== alerts) {
+			// update active price source
+			document.querySelectorAll(alerts.sources).forEach((e) => {
+				price = getFirstFloat(e.innerText);
+			});
+
+			// make sure we have price data
+			if (0.0 == price)
+				return;
+
+			// find all elements matching our selectors
+			document.querySelectorAll(alerts.triggers).forEach((e) => {
+				// ensure this element has not been marked yet
+				if (!e.classList || e.classList.contains(triggerId))
+					return;
+
+				// add the class to the element
+				e.classList.add(triggerId);
+			});
+		}
 	}, 1000, 100);
 
 })();

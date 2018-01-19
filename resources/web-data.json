@@ -16,7 +16,16 @@
 			".ticker-basevolume, .ticker-high, .ticker-low, .ticker-last, span#orderbook-total-buy",
 			"div.marketplace-listitem-price, div.marketplace-item-price, a#userBalanceBuy, span.tradepair-basemintrade",
 			"div#balanceTarget div span.text-success, div#table-balances_wrapper table tbody tr td:nth-child(6)"
-		]
+		],
+		"alerts": {
+			"sources": [
+				"div.ticker-label b.ticker-last"
+			],
+			"triggers": [
+				"input#buyprice",
+				"input#sellprice"
+			]
+		}
 	},
 	{
 		"urls": [
