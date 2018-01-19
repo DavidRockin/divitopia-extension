@@ -39,8 +39,7 @@ function fetchPrices() {
 		// only deal with valid responses
 		if (this.readyState == 4 && this.status == 200) {
 			// parse our response
-			prices = JSON.parse(this.responseText);
-			prices.RUB.symbol = ''; // just to clean up things a tad
+			prices = JSON.parse(this.responseText).prices;
 
 			// define currencies available
 			availableCurrencies = Object.keys(prices);
@@ -48,7 +47,7 @@ function fetchPrices() {
 	};
 
 	// attempt to open and send the request
-	xhttp.open("GET", "https://blockchain.info/ticker?cors=true", true);
+	xhttp.open("GET", "https://mydivi.tkachuk.tech/currency/btc/fiat", true);
 	xhttp.send();
 }
 

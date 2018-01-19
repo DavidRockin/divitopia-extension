@@ -169,7 +169,7 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies) {
 		// append currency to tooltip
 		tooltip.innerHTML += '<b>' + c + '</b>: ' +
 								prices[c].symbol + ' ' +
-								(price * prices[c].last).toFixed(3) +
+								(price * prices[c].price).toFixed(3) +
 							'<br />'
 		;
 	});
