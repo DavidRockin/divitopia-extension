@@ -72,21 +72,9 @@ function get(url, callback) {
  * Fetch webdata JSON file
  */
 function fetchWebdata() {
-	// typical AJAX request
-	var xhttp = new XMLHttpRequest();
-
-	// our xhttp handler
-	xhttp.onreadystatechange = function() {
-		// only deal with valid responses
-		if (this.readyState == 4 && this.status == 200) {
-			// parse our response
-			webdata = JSON.parse(this.responseText);
-		}
-	};
-
-	// attempt to open and send the request
-	xhttp.open("GET", getImage('/resources/web-data.json'), true);
-	xhttp.send();
+	get(getImage('/resources/web-data.json'), (json) => {
+		webdata = json;
+	});
 }
 
 /**
