@@ -91,23 +91,44 @@ function removeTooltip() {
  */
 function openSelectionTooltip(currency, crypto) {
 	// get the selected text
-	var selection = getSelect();
+	var selection = getSelect(),
+		x = 0, y = 0, text = ''
+	;
 
-	// if we dont have an X and Y position, don't bother
-	if (null === selection.x && null === selection.y)
-		return;
+	// in case the user did not select text, try to use the active element
+	if (null === selection.x && null === selection.y) {
+		var e = document.activeElement;
+		selection = e.getBoundingClientRect();
+		x = selection.x;
+		y = selection.y;
+
+		switch (e.nodeName.toLowerCase()) {
+			case 'textarea':
+			case 'input':
+				text = e.value;
+			break;
+			case 'a':
+				text = e.innerText;
+			break;
+			default: return;
+		}
+
+	// user selected text to convert
+	} else {
+		x = selection.x;
+		y = selection.y;
+		text = window.getSelection().toString();
+	}
 
 	// make sure the selected text is numerical, extract the first number selected
-	var price      = window.getSelection().toString(),
-		priceParse = price.match(/([0-9.]+)/);
+	var priceParse = text.match(/([0-9.]+)/);
 	if (null == priceParse || null == priceParse[0] || "" == priceParse[0])
 		return;
 
 	// parse the selected text, pass our information and open our tooltip!
 	openTooltip(
 		parseFloat(priceParse[0]),
-		selection.x,
-		selection.y,
+		x, y,
 		true,
 		currency,
 		crypto
