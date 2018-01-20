@@ -15,7 +15,9 @@
 			"#buyprice, #buyfee, #buytotal, #buynettotal, #sellprice, #sellfee, #selltotal, #sellnettotal",
 			".ticker-basevolume, .ticker-high, .ticker-low, .ticker-last, span#orderbook-total-buy",
 			"div.marketplace-listitem-price, div.marketplace-item-price, a#userBalanceBuy, span.tradepair-basemintrade",
-			"div#balanceTarget div span.text-success, div#table-balances_wrapper table tbody tr td:nth-child(6)"
+			"div#balanceTarget div span.text-success, div#table-balances_wrapper table tbody tr td:nth-child(6)",
+			"table#useropenorders tbody tr td:nth-child(3), table#useropenorders tbody tr td:nth-child(6)",
+			"table#userorderhistory tbody tr td:nth-child(3), table#userorderhistory tbody tr td:nth-child(5)"
 		],
 		"alerts": {
 			"sources": [
