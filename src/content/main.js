@@ -115,7 +115,7 @@ function openSelectionTooltip(currency, crypto) {
 }
 
 function getTooltip(forceOpen) {
-	var e = document.getElementById(tooltipId + '-popup');
+	var e = document.getElementById(tooltipId + '-popup') ||  document.getElementById(tooltipId + '-popup-active');
 	if (null !== e) {
 		return e;
 	}
@@ -158,6 +158,8 @@ function getTooltip(forceOpen) {
 
 	tooltip.innerHTML += '<div class="tooltip-inner-content"></div>';
 
+	tooltip.innerHTML += '<h4 style="font-size:10pt;font-weight:bold;color:#333">Crypto Made Easy</h4>';
+
 	// if the tooltip is to be forced open, add a custom tooltip event listener
 	if (forceOpen) {
 		tooltip.addEventListener("mouseleave", (e) => {
@@ -176,6 +178,7 @@ function getTooltip(forceOpen) {
 		toolTips.push(tooltip);
 	}
 	activeTooltip = tooltip;
+	return tooltip;
 }
 
 /**
@@ -219,9 +222,7 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
 		;
 	});
 
-	// append tooltip motto
-	html += '<h4 style="font-size:10pt;font-weight:bold;color:#333">Crypto Made Easy</h4>';
-
+	// update the inner content
 	tooltip.getElementsByClassName('tooltip-inner-content')[0].innerHTML = html;
 
 	// calculate and assign tooltip top and left offsets
@@ -230,7 +231,6 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
 
 	// make the tooltip visible
 	tooltip.style.visibility = '';
-
 }
 
 /**
