@@ -115,7 +115,10 @@ function openSelectionTooltip(currency, crypto) {
 }
 
 function getTooltip(forceOpen) {
-	var e = document.getElementById(tooltipId + '-popup') ||  document.getElementById(tooltipId + '-popup-active');
+	var active = document.getElementById(tooltipId + '-popup-active');
+	if (null !== active) active.remove();
+
+	var e = document.getElementById(tooltipId + '-popup');
 	if (null !== e) {
 		return e;
 	}
@@ -193,20 +196,16 @@ function getTooltip(forceOpen) {
  */
 function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
 	// predefine some variables we'll need
-	var tooltip    = getTooltip(forceOpen),
+	var forceOpen  = forceOpen || false,
+		tooltip    = getTooltip(forceOpen),
 		x          = x || mouseX,
 		y          = y || mouseY
-		forceOpen  = forceOpen || false,
 		mainCurrencies = activeCurrencies || mainCurrencies,
 		crypto = crypto || 'BTC'
 	;
 
 	// we need to make sure we have currency data
 	if (null === data || !data.crypto || !data.crypto[crypto]) return;
-
-	// check if we have a forced active tooltip, remove if it exists
-	var active = document.getElementById(tooltipId + '-popup-active');
-	if (null !== active) active.remove();
 
 	price *= data.crypto[crypto].price_usd;
 
