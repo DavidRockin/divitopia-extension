@@ -114,32 +114,12 @@ function openSelectionTooltip(currency, crypto) {
 	);
 }
 
-/**
- * Opens the conversion tooltip on page
- *
- * @param {Float}   price Price to convert
- * @param {Number}  x the x position to display the tooltip
- * @param {Number}  y the y position to display the tooltip
- * @param {Boolean} forceOpen Force the tooltip to be active and open
- * @param {Array}   activeCurrencies An array of currencies to display
- * @param {String}  crypto Crypto currency to convert from
- */
-function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
-	// predefine some variables we'll need
-	var tooltip    = document.createElement('div'),
-		x          = x || mouseX,
-		y          = y || mouseY
-		forceOpen  = forceOpen || false,
-		mainCurrencies = activeCurrencies || mainCurrencies,
-		crypto = crypto || 'BTC'
-	;
-
-	// we need to make sure we have currency data
-	if (null === data || !data.crypto || !data.crypto[crypto]) return;
-
-	// check if we have a forced active tooltip, remove if it exists
-	var active = document.getElementById(tooltipId + '-popup-active');
-	if (null !== active) active.remove();
+function getTooltip(forceOpen) {
+	var e = document.getElementById(tooltipId + '-popup');
+	if (null !== e) {
+		return e;
+	}
+	var tooltip = document.createElement('div');
 
 	// assign specific CSS styles to our new element, tooltip
 	Object.assign(tooltip.style, {
@@ -158,7 +138,12 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
 		visibility    : 'hidden',
 
 		'-webkit-box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)',
-		'box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)'
+		'box-shadow' : '0 0 3px 3px rgba(69,69,69,0.42)',
+		'-webkit-transition': 'all 150ms ease',
+		'-moz-transition': 'all 150ms ease',
+		'-ms-transition': 'all 150ms ease',
+		'-o-transition': 'all 150ms ease',
+		'transition': 'all 150ms ease'
 	});
 
 	// define the ID to the tooltip
@@ -171,20 +156,7 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
 									'" style="height:9.5pt;max-width:auto;margin-top:-3px;" /> The Divi Project' +
 						'</a></h2>';
 
-	price *= data.crypto[crypto].price_usd;
-
-	// loop through our acceptable currencies,
-	mainCurrencies.forEach((c) => {
-		// append currency to tooltip
-		tooltip.innerHTML += '<b>' + c + '</b>: ' +
-								data.fiat[c].symbol + ' ' +
-								(price * data.fiat[c].usd).toFixed(3) +
-							'<br />'
-		;
-	});
-
-	// append tooltip motto
-	tooltip.innerHTML += '<h4 style="font-size:10pt;font-weight:bold;color:#333">Crypto Made Easy</h4>';
+	tooltip.innerHTML += '<div class="tooltip-inner-content"></div>';
 
 	// if the tooltip is to be forced open, add a custom tooltip event listener
 	if (forceOpen) {
@@ -200,6 +172,58 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
 	// append the tooltip to the body!
 	document.body.appendChild(tooltip);
 
+	if (!forceOpen) {
+		toolTips.push(tooltip);
+	}
+	activeTooltip = tooltip;
+}
+
+/**
+ * Opens the conversion tooltip on page
+ *
+ * @param {Float}   price Price to convert
+ * @param {Number}  x the x position to display the tooltip
+ * @param {Number}  y the y position to display the tooltip
+ * @param {Boolean} forceOpen Force the tooltip to be active and open
+ * @param {Array}   activeCurrencies An array of currencies to display
+ * @param {String}  crypto Crypto currency to convert from
+ */
+function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
+	// predefine some variables we'll need
+	var tooltip    = getTooltip(forceOpen),
+		x          = x || mouseX,
+		y          = y || mouseY
+		forceOpen  = forceOpen || false,
+		mainCurrencies = activeCurrencies || mainCurrencies,
+		crypto = crypto || 'BTC'
+	;
+
+	// we need to make sure we have currency data
+	if (null === data || !data.crypto || !data.crypto[crypto]) return;
+
+	// check if we have a forced active tooltip, remove if it exists
+	var active = document.getElementById(tooltipId + '-popup-active');
+	if (null !== active) active.remove();
+
+	price *= data.crypto[crypto].price_usd;
+
+	var html = '';
+
+	// loop through our acceptable currencies,
+	mainCurrencies.forEach((c) => {
+		// append currency to tooltip
+		html += '<b>' + c + '</b>: ' +
+								data.fiat[c].symbol + ' ' +
+								(price * data.fiat[c].usd).toFixed(3) +
+							'<br />'
+		;
+	});
+
+	// append tooltip motto
+	html += '<h4 style="font-size:10pt;font-weight:bold;color:#333">Crypto Made Easy</h4>';
+
+	tooltip.getElementsByClassName('tooltip-inner-content')[0].innerHTML = html;
+
 	// calculate and assign tooltip top and left offsets
 	tooltip.style.top  = calculateOffsetY(y, tooltip.getBoundingClientRect().height) + 'px';
 	tooltip.style.left = calculateOffsetX(x, tooltip.getBoundingClientRect().width)  + 'px';
@@ -207,10 +231,6 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
 	// make the tooltip visible
 	tooltip.style.visibility = '';
 
-	if (!forceOpen) {
-		toolTips.push(tooltip);
-	}
-	activeTooltip = tooltip;
 }
 
 /**
@@ -377,8 +397,11 @@ function handleAlertTrigger(e) {
 
 	// create a global mouse out event listener
 	document.addEventListener('mouseout', (e) => {
-		// in 50ms attempt to remove any open tooltips
-		reset = setTimeout(removeTooltip, 50);
+		if (tooltipId == e.target.id || e.target.classList && (
+			e.target.classList.contains(tooltipId+'-popup') ||
+			e.target.classList.contains(tooltipId)
+		))
+			reset = setTimeout(removeTooltip, 50);
 
 		handleAlertTrigger(e);
 	}, true);
