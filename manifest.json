@@ -3,7 +3,7 @@
 
 	"name" : "Divitopia Bitcoin Convertor",
 	"short_name" : "Divitopia",
-	"version" : "1.1.0-b1",
+	"version" : "1.1.0",
 	"author" : "The Divi Project",
 	"homepage_url" : "https://github.com/DavidRockin/divitopia-extension",
 	"description" : "Converts Bitcoin values to fiat currencies",

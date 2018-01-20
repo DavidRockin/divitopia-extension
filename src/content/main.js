@@ -131,8 +131,11 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
 		y          = y || mouseY
 		forceOpen  = forceOpen || false,
 		mainCurrencies = activeCurrencies || mainCurrencies,
-		crypto = crypto || 'btc'
+		crypto = crypto || 'BTC'
 	;
+
+	// we need to make sure we have currency data
+	if (null === data || !data.crypto || !data.crypto[crypto]) return;
 
 	// check if we have a forced active tooltip, remove if it exists
 	var active = document.getElementById(tooltipId + '-popup-active');
@@ -346,7 +349,7 @@ function handleAlertTrigger(e) {
 	fetchWebdata();
 
 	// update our currencies
-	updateCurrencies();
+	updateSettings();
 
 	// create a global mouse enter event listener
 	document.addEventListener('mouseenter', (e) => {
