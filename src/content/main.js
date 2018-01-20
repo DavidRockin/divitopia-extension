@@ -87,8 +87,9 @@ function removeTooltip() {
  * Opens a tooltip at active selected text
  *
  * @param {Array} currency Currencies to only show
+ * @param {String} crypto Crypto currency to convert from
  */
-function openSelectionTooltip(currency) {
+function openSelectionTooltip(currency, crypto) {
 	// get the selected text
 	var selection = getSelect();
 
@@ -108,7 +109,8 @@ function openSelectionTooltip(currency) {
 		selection.x,
 		selection.y,
 		true,
-		currency
+		currency,
+		crypto
 	);
 }
 
@@ -120,14 +122,16 @@ function openSelectionTooltip(currency) {
  * @param {Number}  y the y position to display the tooltip
  * @param {Boolean} forceOpen Force the tooltip to be active and open
  * @param {Array}   activeCurrencies An array of currencies to display
+ * @param {String}  crypto Crypto currency to convert from
  */
-function openTooltip(price, x, y, forceOpen, activeCurrencies) {
+function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
 	// predefine some variables we'll need
 	var tooltip    = document.createElement('div'),
 		x          = x || mouseX,
 		y          = y || mouseY
 		forceOpen  = forceOpen || false,
-		mainCurrencies = activeCurrencies || mainCurrencies
+		mainCurrencies = activeCurrencies || mainCurrencies,
+		crypto = crypto || 'btc'
 	;
 
 	// check if we have a forced active tooltip, remove if it exists
@@ -164,12 +168,14 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies) {
 									'" style="height:9.5pt;max-width:auto;margin-top:-3px;" /> The Divi Project' +
 						'</a></h2>';
 
+	price *= data.crypto[crypto].price_usd;
+
 	// loop through our acceptable currencies,
 	mainCurrencies.forEach((c) => {
 		// append currency to tooltip
 		tooltip.innerHTML += '<b>' + c + '</b>: ' +
-								prices[c].symbol + ' ' +
-								(price * prices[c].price).toFixed(3) +
+								data.fiat[c].symbol + ' ' +
+								(price * data.fiat[c].usd).toFixed(3) +
 							'<br />'
 		;
 	});

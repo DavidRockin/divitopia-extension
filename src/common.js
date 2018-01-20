@@ -1,12 +1,12 @@
 /**
- * An object
- */
-var prices         = null;
-
-/**
  * Main currencies to display
  */
 var mainCurrencies = ['USD','EUR', 'JPY', 'KRW', 'CAD','AUD','GBP','CNY','RUB'];
+
+/**
+ * Main cryptos to convert
+ */
+var mainCryptos = ['BTC', 'BCH', 'ETH', 'ETC', 'DIVX', 'LTC'];
 
 /**
  * Currencies
@@ -17,6 +17,11 @@ var availableCurrencies = [];
  * JSON data of extension's web data for website selectors
  */
 var webdata = null;
+
+/**
+ * Data
+ */
+var data = {};
 
 /**
  * Default currencies
@@ -31,6 +36,22 @@ var defaultCurrencies = mainCurrencies;
  * have to parse it prior to using it
  */
 function fetchPrices() {
+	get('https://mydivi.tkachuk.tech/info/fiat', (json) => {
+		data.fiat = json;
+	});
+	get('https://mydivi.tkachuk.tech/info/crypto', (json) => {
+		data.crypto = json;
+	});
+}
+
+/**
+ * Sends an AJAX request with a callback
+ *
+ * @param {String} url
+ * @param {Callable} callback
+ * @todo  error handling !!!
+ */
+function get(url, callback) {
 	// typical AJAX request
 	var xhttp = new XMLHttpRequest();
 
@@ -38,16 +59,12 @@ function fetchPrices() {
 	xhttp.onreadystatechange = function() {
 		// only deal with valid responses
 		if (this.readyState == 4 && this.status == 200) {
-			// parse our response
-			prices = JSON.parse(this.responseText).prices;
-
-			// define currencies available
-			availableCurrencies = Object.keys(prices);
+			callback(JSON.parse(this.responseText));
 		}
 	};
 
 	// attempt to open and send the request
-	xhttp.open("GET", "https://mydivi.tkachuk.tech/currency/btc/fiat", true);
+	xhttp.open("GET", url, true);
 	xhttp.send();
 }
 
@@ -277,11 +294,11 @@ function updateCurrencies(callback) {
 
 	// send message to fetch new prices
 	getRuntime().sendMessage({
-		action : 'get_prices'
+		action : 'get_data'
 	}, (msg) => {
 		// update our local variable to the response
-		prices = msg.prices;
-		callback('get_prices', msg);
+		data = msg.data;
+		callback('get_data', msg);
 	});
 
 	// send message to fetch new currencies

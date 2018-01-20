@@ -97,7 +97,7 @@ function render() {
 	// loop through our available currencies
 	currencies.forEach((c) => {
 		// add this currency as a menu item
-		addItem(prices[c].name + ' (' + c + ')', handleConvert, (e) => {
+		addItem(data.fiat[c].name + ' (' + c + ')', handleConvert, (e) => {
 			e.setAttribute('data-currency', c);
 			if (mainCurrencies.indexOf(c) > -1)
 				e.classList.add('active');
@@ -132,7 +132,7 @@ function render() {
 
 (function() {
 	updateCurrencies((action, data) => {
-		if (action == 'get_prices') {
+		if (action == 'get_data') {
 			render();
 		}
 	});

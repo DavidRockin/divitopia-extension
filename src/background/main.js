@@ -14,10 +14,10 @@
 			});
 
 		// if action is to fetch our prices
-		} else if (request.action == 'get_prices') {
+		} else if (request.action == 'get_data') {
 			// send back our prices
 			response({
-				prices : prices
+				data : data
 			});
 
 		// if we're going to update the main currencies, update it
