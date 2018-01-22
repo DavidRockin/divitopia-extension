@@ -3,6 +3,10 @@
 		"urls": [
 			"^https?:\\/\\/(\\w+\\.)?cryptopia\\.co\\.nz\/"
 		],
+		"currency": {
+			"method": "selectorAttribute",
+			"selector": "div.basecurrency-btn-group a.currencyData-btn.active|data-currency"
+		},
 		"selectors": [
 			"tr.currencyData-tradepair td:nth-child(3)",
 			"table#buyorders tbody tr td:nth-child(2)",
@@ -33,6 +37,10 @@
 		"urls": [
 			"^https?:\\/\\/(\\w+\\.)?poloniex\\.com\\/"
 		],
+		"currency": {
+			"method": "selectorText",
+			"selector": "div#marketTables div.tableHead ul.tabs li.active"
+		},
 		"selectors": [
 			"div.lastPrice > div.info",
 			"div.high > div.info",

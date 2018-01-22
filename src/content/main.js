@@ -222,7 +222,7 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
 		x          = x || mouseX,
 		y          = y || mouseY
 		mainCurrencies = activeCurrencies || mainCurrencies,
-		crypto = crypto || 'BTC'
+		crypto = crypto || getWebsiteCurrency(window.location)
 	;
 
 	// we need to make sure we have currency data

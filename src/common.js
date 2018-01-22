@@ -316,6 +316,11 @@ function updateSettings(callback) {
 	});
 }
 
+/**
+ * Gets the very first float in a string
+ *
+ * @param {String} str
+ */
 function getFirstFloat(str) {
 	var regexp = str.match(/([0-9.]+)/);
 	if (null === regexp || null === regexp[0] || '' == regexp[0])
@@ -323,6 +328,65 @@ function getFirstFloat(str) {
 	return parseFloat(regexp[0]);
 }
 
+/**
+ * Gets the price yield of a buy/sell
+ *
+ * @param {Float} current Current price
+ * @param {Float} target Targeted price to sell/buy
+ */
 function getPriceYield(current, target) {
 	return Math.abs(1 - target/current);
+}
+
+/**
+ * Get's the website's default currency
+ *
+ * @param {String} url URL of the website
+ */
+function getWebsiteCurrency(url) {
+	var data = getWebdata(url);
+
+	if (null === data || !data.currency) {
+		return 'BTC';
+	}
+
+	// should the currency data not be an object, return it
+	if (typeof data.currency !== 'object') {
+		return data.currency;
+	}
+
+	// use the method property to execute a custom function
+	var fn = window[data.currency.method];
+	if (typeof fn === 'function') {
+		return fn(data.currency);
+	}
+
+	return 'BTC';
+}
+
+/**
+ * Gets currency data from a selector's attribute
+ *
+ * @param {Object} curr Currency detection details
+ */
+function selectorAttribute(curr) {
+	var selector = curr.selector.split('|'),
+		e = document.querySelector(selector[0]);
+	if (null === e || null == (attr = e.getAttribute(selector[1]))) {
+		return 'BTC';
+	}
+	return attr;
+}
+
+/**
+ * Gets currency data from a selector's inner text
+ *
+ * @param {Object} curr Currency detection details
+ */
+function selectorText(curr) {
+	var e = document.querySelector(curr.selector);
+	if (null === e) {
+		return 'BTC';
+	}
+	return e.innerText;
 }
