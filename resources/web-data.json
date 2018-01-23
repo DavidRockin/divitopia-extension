@@ -64,6 +64,10 @@
 		"urls": [
 			"^https?:\\/\\/(\\w+\\.)?binance\\.com\\/"
 		],
+		"currency": {
+			"method": "selectorText",
+			"selector": ".depthstitle ul.tab-box li.f-fr.active"
+		},
 		"selectors": [
 			"div#askScrollBox table.askTable tbody tr td:nth-child(odd), div#bidScrollBox table.bidTable tbody tr td:nth-child(odd)",
 			"strong.ng-binding",
@@ -72,7 +76,16 @@
 			"form[name='buyForm'] input#buyPrice, form[name='buyForm'] input.readonly",
 			"form[name='sellForm'] input#sellPrice, form[name='sellForm'] input.readonly",
 			"form[name='stopBuyForm'] input#buy_stopPrice, form[name='stopBuyForm'] input#stop_curPrice, form[name='stopBuyForm'] input.readonly",
-			"form[name='stopSellForm'] input#stopSell_StopPrice, form[name='stopSellForm'] input#stopSell_curPrice, form[name='stopSellForm'] input.readonly"
+			"form[name='stopSellForm'] input#stopSell_StopPrice, form[name='stopSellForm'] input#stopSell_curPrice, form[name='stopSellForm'] input.readonly",
+			"div.orderforms div.orderform-main div.orderforms-hd > div span.ng-binding",
+			"div.ask table.table tbody tr td:nth-child(1) span, div.ask table.table tbody tr td:nth-child(3) span",
+			"div.tradefive table.depth tr th span.ng-binding",
+			"div.bid table.table tbody tr td:nth-child(1) span, div.bid table.table tbody tr td:nth-child(3) span",
+			"div.orderform input[name='price'], div.bid-div div.ng-binding, div.orderform div.total-div span.ng-binding",
+			"div.bid-div input[name='buy_stopPrice'], div.bid-div input[name='stop_curPrice']",
+			"div.bid-div input[name='stopSell_StopPrice'], div.bid-div input[name='stopSell_curPrice']",
+			"div.header div.f-fr table.table tbody tr:nth-child(2) td.ng-binding",
+			"div.products-list div.wrap1 ul.tableBody li span.ng-binding"
 		]
 	},
 	{
@@ -82,7 +95,7 @@
 		"currency": "ETH",
 		"selectors": [
 			"div#orderBookScroll tbody tr.clickable-row td:nth-child(3)",
-			"div#volume_ETH table tbody tr td:nth-child(-n+2)",
+			"div#volume_ETH table tbody tr td:nth-last-child(-n+2)",
 			"div#trades tbody tr td:nth-child(3) span.ttip",
 			"ul.nav.navbar-nav li#accounts a span.badge",
 			"div.tab-pane.active#buy form input[data-trn-key-placeholder='total']",
