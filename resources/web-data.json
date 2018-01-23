@@ -74,5 +74,21 @@
 			"form[name='stopBuyForm'] input#buy_stopPrice, form[name='stopBuyForm'] input#stop_curPrice, form[name='stopBuyForm'] input.readonly",
 			"form[name='stopSellForm'] input#stopSell_StopPrice, form[name='stopSellForm'] input#stopSell_curPrice, form[name='stopSellForm'] input.readonly"
 		]
+	},
+	{
+		"urls": [
+			"^https?:\\/\\/(\\w+\\.)?etherdelta\\.com\\/"
+		],
+		"currency": "ETH",
+		"selectors": [
+			"div#orderBookScroll tbody tr.clickable-row td:nth-child(3)",
+			"div#volume_ETH table tbody tr td:nth-child(-n+2)",
+			"div#trades tbody tr td:nth-child(3) span.ttip",
+			"ul.nav.navbar-nav li#accounts a span.badge",
+			"div.tab-pane.active#buy form input[data-trn-key-placeholder='total']",
+			"div.tab-pane.active#sell form input[data-trn-key-placeholder='total']",
+			"table#myTrades tbody tr td:nth-child(4)",
+			"table#myFunds tbody tr td:nth-child(4)"
+		]
 	}
 ]
