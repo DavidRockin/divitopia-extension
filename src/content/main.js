@@ -236,9 +236,9 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
 	mainCurrencies.forEach((c) => {
 		// append currency to tooltip
 		html += '<b>' + c + '</b>: ' +
-								data.fiat[c].symbol + ' ' +
-								(price * data.fiat[c].usd).toFixed(3) +
-							'<br />'
+				data.fiat[c].symbol + ' ' +
+				Intl.NumberFormat.call().format(price * data.fiat[c].usd) +
+			'<br />'
 		;
 	});
 
