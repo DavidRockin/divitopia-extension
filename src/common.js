@@ -322,10 +322,10 @@ function updateSettings(callback) {
  * @param {String} str
  */
 function getFirstFloat(str) {
-	var regexp = str.match(/([0-9.]+)/);
+	var regexp = str.match(/([0-9.,]+)/);
 	if (null === regexp || null === regexp[0] || '' == regexp[0])
 		return false;
-	return parseFloat(regexp[0]);
+	return parseFloat(regexp[0].replace(',', ''));
 }
 
 /**
