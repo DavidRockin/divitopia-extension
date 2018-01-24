@@ -1,0 +1,28 @@
+{
+  "name": "divitopia",
+  "version": "1.1.0",
+  "description": "Webextension for instant crypto currency conversion",
+  "main": "index.js",
+  "scripts": {
+    "build-dev": "node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidRockin/btce-firefox.git"
+  },
+  "author": "The Divi Project, David Tkachuk",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/DavidRockin/btce-firefox/issues"
+  },
+  "homepage": "https://github.com/DavidRockin/btce-firefox#readme",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-folders": "^1.1.0",
+    "gulp-zip": "^4.1.0"
+  }
+}
