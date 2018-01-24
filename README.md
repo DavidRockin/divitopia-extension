@@ -31,7 +31,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Daivd Tkachuk** - *Lead Developer* - [DavidRockin](https://github.com/DavidRockin)
+* **David Tkachuk** - *Lead Developer* - [DavidRockin](https://github.com/DavidRockin)
 
 See also the list of [contributors](https://github.com/davidrockin/divitopia-extension/contributors) who participated in this project.
 

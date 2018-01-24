@@ -280,7 +280,7 @@ function openAlert(text, x, y, forceOpen) {
 		border        : '1px solid #773a3a',
 
 		position      : 'absolute',
-		padding       : '9px 22px',
+		padding       : '20px 22px',
 		'z-index'     : 99999999999,
 
 		'text-align'  : 'center',

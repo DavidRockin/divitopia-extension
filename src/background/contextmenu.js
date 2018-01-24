@@ -2,18 +2,18 @@
 
 	// define browser's context menus
 	var menu = getBrowser().contextMenus;
-
+	menu.create({
+		id      : 'convert-selected',
+		title   : 'Convert selected "%s" ',
+		contexts: ['selection'],
+		enabled : false
+	});
 
 	mainCryptos.forEach((c) => {
 		menu.create({
-			id      : 'convert-selected-' + c.toLowerCase(),
-			title   : 'Convert "%s" ' + c,
-			contexts: ['selection']
-		});
-		menu.create({
 			id      : 'convert-element-' + c.toLowerCase(),
-			title   : 'Convert ' + c,
-			contexts: ['link', 'editable']
+			title   : 'Convert from ' + c,
+			contexts: ['link', 'editable', 'selection']
 		});
 	});
 
@@ -28,7 +28,7 @@
 	// add an event listener to our menu
 	menu.onClicked.addListener((info, tab) => {
 		// make sure we have to convert selected text
-		if (info.menuItemId.indexOf('convert-selected') !== 0 && info.menuItemId.indexOf('convert-element') !== 0)
+		if (info.menuItemId.indexOf('convert-element') !== 0)
 			return;
 
 		var crypto = info.menuItemId.substr(info.menuItemId.lastIndexOf('-') +1).toUpperCase();
