@@ -6,7 +6,7 @@
 	"version" : "1.1.0",
 	"author" : "The Divi Project",
 	"homepage_url" : "https://github.com/DavidRockin/divitopia-extension",
-	"description" : "Converts Bitcoin values to fiat currencies",
+	"description" : "Converts crypto prices to fiat currencies",
 
 	"icons" : {
 		"32" : "resources/icon-32.png",
@@ -52,7 +52,8 @@
 		"scripts" : [
 			"src/common.js",
 			"src/background/main.js",
-			"src/background/contextmenu.js"
+			"src/background/contextmenu.js",
+			"src/background/browser.js"
 		]
 	}
 }

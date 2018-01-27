@@ -29,6 +29,11 @@ var data = {};
 var defaultCurrencies = mainCurrencies;
 
 /**
+ * Divitopia Website
+ */
+const divitopiaURL = 'https://divitopia.diviproject.org';
+
+/**
  * Fetch BTC prices
  *
  * We'll send an AJAX request to fetch recent Bitcoin
@@ -36,10 +41,10 @@ var defaultCurrencies = mainCurrencies;
  * have to parse it prior to using it
  */
 function fetchPrices() {
-	get('https://mydivi.tkachuk.tech/info/fiat', (json) => {
+	get(divitopiaURL + '/info/fiat', (json) => {
 		data.fiat = json;
 	});
-	get('https://mydivi.tkachuk.tech/info/crypto', (json) => {
+	get(divitopiaURL + '/info/crypto', (json) => {
 		data.crypto = json;
 	});
 }
