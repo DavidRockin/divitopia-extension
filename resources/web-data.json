@@ -113,5 +113,19 @@
 			"span[data-c], span[btc], amount span:last-child, fiat-or-btc span:last-child, div.main-balance div.dropdown span:first-child",
 			"input[ng-model='state.input.amount'], input[ng-model='state.output.amount'], exchange-trade .exchange-exchanged, exchange-trade .exchange-received"
 		]
+	},
+	{
+		"urls": [
+			"^https?:\\/\\/(\\w+\\.)?etherscan\\.io\\/"
+		],
+		"currency": "ETH",
+		"selectors": [
+			"div.mCSB_container div.profile-event p:last-child, div.mCSB_container div.profile-post p:last-child",
+			"div#ContentPlaceHolder1_maintable div.cbs:nth-child(14), div#ContentPlaceHolder1_maintable div.cbs:nth-child(20), div#ContentPlaceHolder1_maintable div.cbs:nth-child(22)",
+			"div#ContentPlaceHolder1_divSummary table.table  tbody tr:nth-child(1) td:last-child",
+			"div#transactions table.table tbody tr td:nth-last-child(-n+2)",
+			"div#mine table.table tbody tr td:nth-child(6), div#uncle table.table tbody tr td:nth-child(6)",
+			"div#overview table tr:last-child td:last-child, div#ContentPlaceHolder1_mainrow table tbody tr td:nth-last-child(-n+2)"
+		]
 	}
 ]
