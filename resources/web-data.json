@@ -103,5 +103,15 @@
 			"table#myTrades tbody tr td:nth-child(4)",
 			"table#myFunds tbody tr td:nth-child(4)"
 		]
+	},
+	{
+		"urls": [
+			"^https?:\\/\\/(\\w+\\.)?blockchain\\.info\\/"
+		],
+		"currency": "BTC",
+		"selectors": [
+			"span[data-c], span[btc], amount span:last-child, fiat-or-btc span:last-child, div.main-balance div.dropdown span:first-child",
+			"input[ng-model='state.input.amount'], input[ng-model='state.output.amount'], exchange-trade .exchange-exchanged, exchange-trade .exchange-received"
+		]
 	}
 ]
