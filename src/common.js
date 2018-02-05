@@ -99,6 +99,27 @@ function getSelectors(url) {
 	return section.selectors.join(', ');
 }
 
+/**
+ * Fetches a website's special triggers
+ *
+ * @param {String} url Active page URL
+ * @return {null|String|boolean} If no webdata, null is returned.
+ * 								 If there is no match, false is returned.
+ * 								 If there is a match a string of selectors is returned
+ */
+function getSpecialTriggers(url) {
+	var section = getWebdata(url);
+
+	if (null === section || !section.specialTriggers)
+		return false;
+
+	var result = [];
+	Object.keys(section.specialTriggers).forEach((func) => {
+		result[func] = section.specialTriggers[func].join(', ');
+	});
+	return result;
+}
+
 function getAlertTriggers(url) {
 	var section = getWebdata(url);
 

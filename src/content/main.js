@@ -33,6 +33,8 @@ var  diviURL       = 'https://www.diviproject.org/';
  */
 var	selectors     = null;
 
+var specialTriggers = null;
+
 var alerts = null;
 
 var price = 0.0;
@@ -347,16 +349,29 @@ function showTooltip(e) {
 	if (null == priceParse || null == priceParse[0] || "" == priceParse[0])
 		return;
 
+	var defaults = {
+		price  : parseFloat(priceParse[0]),
+		x      : e.clientX,
+		y      : e.clientY,
+		force  : false,
+		active : null,
+		curr   : null
+	}
+
 	// reset our lock
 	lockTrigger = false;
 
+	// if function has a custom function, call it and modify defaults
+	if (e.target.hasAttribute('divitopia-function')) {
+		var fn = window[e.target.getAttribute('divitopia-function')];
+		if (typeof fn === 'function') {
+			defaults = Object.assign(defaults, fn(e));
+		}
+	}
+
 	// open a tooltip, pass along the element's text as the price
 	// and the client's cursor position
-	openTooltip(
-		parseFloat(priceParse[0]),
-		e.clientX,
-		e.clientY
-	);
+	openTooltip(defaults.price, defaults.x, defaults.y, defaults.force, defaults.active, defaults.curr);
 }
 
 /**
@@ -451,6 +466,9 @@ function handleAlertTrigger(e) {
 		if (null === selectors)
 			selectors = getSelectors(window.location);
 
+		if (null === specialTriggers)
+			specialTriggers = getSpecialTriggers(window.location);
+
 		// if the selectors didn't match our website, skip
 		if (false === selectors)
 			return;
@@ -464,6 +482,21 @@ function handleAlertTrigger(e) {
 			// add the class to the element
 			e.classList.add(tooltipId);
 		});
+
+		if (specialTriggers instanceof Array) {
+			Object.keys(specialTriggers).forEach((func) => {
+				document.querySelectorAll(specialTriggers[func]).forEach((e) => {
+					// ensure this element has not been marked yet
+					if (!e.classList || e.classList.contains(tooltipId))
+						return;
+
+					// add the class to the element
+					e.classList.add(tooltipId);
+
+					e.setAttribute("divitopia-function", func);
+				});
+			});
+		}
 
 		// get this websites triggerable elements
 		alerts = getAlertTriggers(window.location);
