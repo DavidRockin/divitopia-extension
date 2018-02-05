@@ -17,3 +17,17 @@ function cryptopiaBalances(e) {
 	}
 	return {};
 }
+
+/**
+ * Cryptopia special trigger for non-btc pricees
+ *
+ * @param {Element} c
+ */
+function cryptopiaCurrency(c) {
+	try {
+		return {
+			curr : document.querySelector('span.tradepair-symbol').innerText.split('/')[0].trim()
+		}
+	} catch (e) {}
+	return {};
+}
