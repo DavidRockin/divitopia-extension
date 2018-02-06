@@ -65,7 +65,7 @@
 			"form#stopLimitForm input#stopLimitStopRate, form#stopLimitForm input#stopLimitRate, form#stopLimitForm input#stopLimitTotal",
 			"form#sellForm input#sellRate, form#sellForm input#sellTotal",
 			"div#bidsTotal, div#offersTotal, div#demandsTotal",
-			"table#sellOrderBookTable tbody tr td:nth-last-child(-n+2), table#buyOrderBookTable tbody tr td:nth-last-child(-n+2)",
+			"table#sellOrderBookTable tbody tr td:not(.orderAmount), table#buyOrderBookTable tbody tr td:not(.orderAmount)",
 			"table#tradeHistoryTable tbody tr td:nth-child(3), table#tradeHistoryTable tbody tr td:nth-child(5)",
 			"div#marketTables table#marketBTC tbody tr td.price",
 			"table#lendingoffersTable tbody tr td:nth-child(2), table#lendingdemandsTable tbody tr td:nth-child(2)",
