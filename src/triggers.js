@@ -31,3 +31,34 @@ function cryptopiaCurrency(c) {
 	} catch (e) {}
 	return {};
 }
+
+/**
+ * Poloniex special trigger for non-btc pricees
+ *
+ * @param {Element} c
+ */
+function poloniexCurrency(c) {
+	try {
+		return {
+			curr : document.querySelector('div.mainHeading div.chartTitle div.code').innerText.split('/')[0].trim()
+		}
+	} catch (e) {}
+	return {};
+}
+
+/**
+ * Poloniex Balance special trigger
+ *
+ * @param {Element} e
+ */
+function poloniexBalances(e) {
+	try {
+		var curr = e.target.parentNode.getAttribute('data-url');
+		if (null !== curr)
+			return {
+				curr : curr.trim()
+			}
+	} catch (e) {
+	}
+	return {};
+}

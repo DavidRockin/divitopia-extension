@@ -73,7 +73,20 @@
 			"div#primaryBalance, div#lowestAsk, div#stopLimitPrimaryBalance, div#highestBid, div#balance, #accountValue_btc",
 			"table#marginBalancesTable tbody tr td:nth-child(2), table#positionsSideTable tbody tr td:nth-child(4)",
 			"table#balancesTable tbody tr td.value"
-		]
+		],
+		"specialTriggers" : {
+			"poloniexCurrency": [
+				"input#buyAmount, input#stopLimitAmount, input#sellAmount, div#stopLimitSecondaryBalance, div#secondaryBalance, div#asksTotal",
+				"div#sellOrderBookTable_wrapper table tbody tr td:nth-child(2)",
+				"div#buyOrderBookTable_wrapper table tbody tr td:nth-child(2)",
+				"table#tradeHistoryTable tbody tr td:nth-child(4)",
+				"div#myOrdersTable_wrapper table tbody tr td:nth-child(3)"
+			],
+			"poloniexBalances" : [
+				"table#balancesTable tbody tr td.balance",
+				"table#balancesTable tbody tr td.onOrders"
+			]
+		}
 	},
 	{
 		"urls": [
