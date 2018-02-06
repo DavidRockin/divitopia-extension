@@ -120,6 +120,12 @@ function getSpecialTriggers(url) {
 	return result;
 }
 
+/**
+ * Return a website's alert trigger elements
+ *
+ * @param {String} url website URL
+ * @return {Array|boolean}
+ */
 function getAlertTriggers(url) {
 	var section = getWebdata(url);
 

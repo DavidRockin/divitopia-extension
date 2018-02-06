@@ -13,6 +13,9 @@ You may also select prices across any website and convert them to any currency o
 
 *Extension preview, manually selecting a price for conversion*
 
+For more information, check out the Divitopia website.
+[https://divitopia.diviproject.org](https://divitopia.diviproject.org)
+
 ## Installation
 
 You can install a public release of the extension from Google's Play Store or Mozilla's Add-ons hub.

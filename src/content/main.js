@@ -33,12 +33,24 @@ var  diviURL       = 'https://www.diviproject.org/';
  */
 var	selectors     = null;
 
+/**
+ * Defined element special triggers
+ */
 var specialTriggers = null;
 
+/**
+ * Defined alert triggers
+ */
 var alerts = null;
 
+/**
+ * Current price of the currency
+ */
 var price = 0.0;
 
+/**
+ * % to alert for loss
+ */
 const alert_threshold = 0.15;
 
 /**
@@ -137,6 +149,13 @@ function openSelectionTooltip(currency, crypto) {
 	);
 }
 
+/**
+ * Gets the tooltip container window
+ *
+ * If an existing tooltip is on the page, this will fetch that
+ * and we'll have to update it. Oterwise we just need to
+ * create a brand new tooltip
+ */
 function getTooltip(forceOpen) {
 	var active = document.getElementById(tooltipId + '-popup-active');
 	if (null !== active) active.remove();
