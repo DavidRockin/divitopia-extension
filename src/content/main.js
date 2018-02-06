@@ -239,7 +239,10 @@ function openTooltip(price, x, y, forceOpen, activeCurrencies, crypto) {
 		// append currency to tooltip
 		html += '<b>' + c + '</b>: ' +
 				data.fiat[c].symbol + ' ' +
-				Intl.NumberFormat.call().format(price * data.fiat[c].usd) +
+				(new Intl.NumberFormat('en-CA', {
+					maximumFractionDigits: 2,
+					minimumFractionDigits: 2
+				}).format(price * data.fiat[c].usd)) +
 			'<br />'
 		;
 	});
