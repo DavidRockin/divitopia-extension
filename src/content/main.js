@@ -385,7 +385,7 @@ function showTooltip(e) {
 
 	// if function has a custom function, call it and modify defaults
 	if (e.target.hasAttribute('divitopia-function')) {
-		var fn = window[e.target.getAttribute('divitopia-function')];
+		var fn = triggerFunctions[e.target.getAttribute('divitopia-function')];
 		if (typeof fn === 'function') {
 			defaults = Object.assign(defaults, fn(e));
 		}

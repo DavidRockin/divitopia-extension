@@ -1,3 +1,5 @@
+var triggerFunctions = {};
+
 /**
  * Cryptopia Balance special trigger
  *
@@ -6,7 +8,7 @@
  *
  * @param {Element} e
  */
-function cryptopiaBalances(e) {
+triggerFunctions.cryptopiaBalances = (e) => {
 	try {
 		var curr = e.target.parentNode.childNodes[3].childNodes[3].innerText;
 		if (null !== curr)
@@ -23,7 +25,7 @@ function cryptopiaBalances(e) {
  *
  * @param {Element} c
  */
-function cryptopiaCurrency(c) {
+triggerFunctions.cryptopiaCurrency = (c) => {
 	try {
 		return {
 			curr : document.querySelector('span.tradepair-symbol').innerText.split('/')[0].trim()
@@ -37,7 +39,7 @@ function cryptopiaCurrency(c) {
  *
  * @param {Element} c
  */
-function poloniexCurrency(c) {
+triggerFunctions.poloniexCurrency = (c) => {
 	try {
 		return {
 			curr : document.querySelector('div.mainHeading div.chartTitle div.code').innerText.split('/')[0].trim()
@@ -51,7 +53,7 @@ function poloniexCurrency(c) {
  *
  * @param {Element} e
  */
-function poloniexBalances(e) {
+triggerFunctions.poloniexBalances = (e) => {
 	try {
 		var curr = e.target.parentNode.getAttribute('data-url');
 		if (null !== curr)
