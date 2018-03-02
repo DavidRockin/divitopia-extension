@@ -168,6 +168,7 @@ function getTooltip(forceOpen) {
 
 	// assign specific CSS styles to our new element, tooltip
 	Object.assign(tooltip.style, {
+		'background-color': '#ddd',
 		background    : '#dddd',
 		color         : '#666',
 		border        : '1px solid #999',

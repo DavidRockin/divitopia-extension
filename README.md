@@ -22,7 +22,7 @@ You can install a public release of the extension from Google's Play Store or Mo
 
 [**Google Chrome Webstore**](https://chrome.google.com/webstore/detail/divitopia-bitcoin-convert/bklbfdfcmohmmljcjhdofdphpdembfbm/reviews)
 
-**Mozilla Firefox** *Coming soon*
+[**Mozilla Firefox**](https://addons.mozilla.org/en-US/firefox/addon/divitopia/)
 
 ## Contributing
 
