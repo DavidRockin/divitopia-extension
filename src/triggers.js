@@ -64,3 +64,20 @@ triggerFunctions.poloniexBalances = (e) => {
 	}
 	return {};
 }
+
+/**
+ * Binance basic exchange currency detection
+ *
+ * @param {Element} e
+ */
+triggerFunctions.binanceBasic = (e) => {
+	try {
+		var curr = e.target.parentNode.getPreviousSibiling();
+		if (null !== curr)
+			return {
+				curr :  curr.trim()
+			}
+	} catch (e) {
+	}
+	return {};
+}
