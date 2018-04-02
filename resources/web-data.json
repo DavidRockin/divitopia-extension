@@ -94,7 +94,7 @@
 		],
 		"currency": {
 			"method": "selectorText",
-			"selector": ".depthstitle ul.tab-box li.f-fr.active"
+			"selector": "span.productSymbol > font"
 		},
 		"selectors": [
 			"div#askScrollBox table.askTable tbody tr td:nth-child(odd), div#bidScrollBox table.bidTable tbody tr td:nth-child(odd)",

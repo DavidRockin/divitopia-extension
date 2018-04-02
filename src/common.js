@@ -33,6 +33,8 @@ var defaultCurrencies = mainCurrencies;
  */
 const divitopiaURL = 'https://divitopia.diviproject.org';
 
+var currencySelectors = {};
+
 /**
  * Fetch BTC prices
  *
@@ -388,7 +390,7 @@ function getWebsiteCurrency(url) {
 	}
 
 	// use the method property to execute a custom function
-	var fn = window[data.currency.method];
+	var fn = currencySelectors[data.currency.method];
 	if (typeof fn === 'function') {
 		return fn(data.currency);
 	}
@@ -401,7 +403,7 @@ function getWebsiteCurrency(url) {
  *
  * @param {Object} curr Currency detection details
  */
-function selectorAttribute(curr) {
+currencySelectors.selectorAttribute = (curr) => {
 	var selector = curr.selector.split('|'),
 		e = document.querySelector(selector[0]);
 	if (null === e || null == (attr = e.getAttribute(selector[1]))) {
@@ -415,10 +417,14 @@ function selectorAttribute(curr) {
  *
  * @param {Object} curr Currency detection details
  */
-function selectorText(curr) {
-	var e = document.querySelector(curr.selector);
-	if (null === e) {
+currencySelectors.selectorText = (curr) => {
+	try {
+		var e = document.querySelector(curr.selector);
+		if (null === e) {
+			return 'BTC';
+		}
+		return e.innerText.replace(/([/\\ ])+/, '');
+	} catch (ex) {
 		return 'BTC';
 	}
-	return e.innerText;
 }
