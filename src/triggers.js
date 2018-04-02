@@ -72,10 +72,10 @@ triggerFunctions.poloniexBalances = (e) => {
  */
 triggerFunctions.binanceBasic = (e) => {
 	try {
-		var curr = e.target.parentNode.getPreviousSibiling();
+		var curr = e.target.previousElementSibling;
 		if (null !== curr)
 			return {
-				curr :  curr.trim()
+				curr :  curr.innerHTML.split('/')[1].trim()
 			}
 	} catch (e) {
 	}
