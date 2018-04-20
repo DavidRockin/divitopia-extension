@@ -111,12 +111,15 @@
 			"div.orderform input[name='price'], div.bid-div div.ng-binding, div.orderform div.total-div span.ng-binding",
 			"div.bid-div input[name='buy_stopPrice'], div.bid-div input[name='stop_curPrice']",
 			"div.bid-div input[name='stopSell_StopPrice'], div.bid-div input[name='stopSell_curPrice']",
-			"div.header div.f-fr table.table tbody tr:nth-child(2) td.ng-binding",
-			"div.products-list div.wrap1 ul.tableBody li span.ng-binding"
+			"div.header div.f-fr table.table tbody tr:nth-child(2) td.ng-binding"
 		],
 		"specialTriggers": {
 			"binanceBasic": [
 				"div.market-con ul.ng-scope li.ng-binding:nth-child(3)"
+			],
+			"binanceAdvanced": [
+				"div.products div.products-list ul.tableBody li span.ng-binding:nth-child(3)",
+				"div.products div.products-list ul.tableBody li span.ng-binding:nth-child(5)"
 			]
 		}
 	},

@@ -81,3 +81,20 @@ triggerFunctions.binanceBasic = (e) => {
 	}
 	return {};
 }
+
+/**
+ * Binance advanced exchange currency detection
+ *
+ * @param {Element} e
+ */
+triggerFunctions.binanceAdvanced = (e) => {
+	try {
+		var curr = e.target.parentNode.children[1];
+		if (null !== curr)
+			return {
+				curr :  curr.innerHTML.split('/')[1].trim()
+			}
+	} catch (e) {
+	}
+	return {};
+}
