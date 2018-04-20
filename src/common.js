@@ -419,11 +419,11 @@ currencySelectors.selectorAttribute = (curr) => {
  */
 currencySelectors.selectorText = (curr) => {
 	try {
-		var e = document.querySelector(curr.selector);
+		var e = document.querySelectorAll(curr.selector)[0];
 		if (null === e) {
 			return 'BTC';
 		}
-		return e.innerText.replace(/([/\\ ])+/, '');
+		return e.innerText.split('/')[0].replace(/([/\\ ])+/, '');
 	} catch (ex) {
 		return 'BTC';
 	}
