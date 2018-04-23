@@ -423,7 +423,7 @@ currencySelectors.selectorText = (curr) => {
 		if (null === e) {
 			return 'BTC';
 		}
-		return e.innerText.split('/')[0].replace(/([/\\ ])+/, '');
+		return e.innerText.split('/')[1].replace(/([/\\ ])+/, '');
 	} catch (ex) {
 		return 'BTC';
 	}
