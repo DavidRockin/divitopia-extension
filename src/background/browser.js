@@ -8,11 +8,11 @@
 getBrowser().runtime.onInstalled.addListener(info => {
 
 	// if a minor version, don't open tabs
-	if (getAppVersion().split('.').length > 2) {
+	if (info.reason !== 'install' && getAppVersion().split('.').length > 2) {
 		return;
 	}
 
-	const url = divitopiaURL + '/install' + 
+	const url = divitopiaURL + '/install' +
 		(info.reason === 'update'
 			? '-v' + getAppVersion() // an updated version
 			: '' // first installation
