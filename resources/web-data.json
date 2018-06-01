@@ -163,5 +163,36 @@
 			"div#mine table.table tbody tr td:nth-child(6), div#uncle table.table tbody tr td:nth-child(6)",
 			"div#overview table tr:last-child td:last-child, div#ContentPlaceHolder1_mainrow table tbody tr td:nth-last-child(-n+2)"
 		]
+	},
+	{
+		"urls": [
+			"^https?:\\/\\/(\\w+\\.)?bleutrade\\.com\\/"
+		],
+		"currency": {
+			"method": "selectorText",
+			"selector": "div#banner span.exchange_divisor_symbol"
+		},
+		"selectors": [
+			"div#exchange_container_coins_v2 tr td:nth-child(2) div",
+			"form#form_trade_buy div.form-group:nth-child(2) div:nth-child(2) input:nth-child(1)",
+			"form#form_trade_sell div.form-group:nth-child(2) div:nth-child(2) input:nth-child(1)",
+			"table#exchange_24h_market_info td#info_last_price div:nth-child(1)",
+			"table#exchange_24h_market_info td#info_bid div:nth-child(1)",
+			"table#exchange_24h_market_info td#info_ask div:nth-child(1)",
+			"table#exchange_24h_market_info td#info_high",
+			"table#exchange_24h_market_info td#info_low",
+			"table#exchange_24h_market_info td#info_avg",
+			"table#exchange_24h_market_info td#info_volume_divisor",
+			"tbody#order_book_buy tr td:nth-child(1)",
+			"tbody#order_book_buy tr td:nth-child(3)",
+			"tbody#order_book_buy tr td:nth-child(4)",
+			"tbody#order_book_sell tr td:nth-child(1)",
+			"tbody#order_book_sell tr td:nth-child(3)",
+			"tbody#order_book_sell tr td:nth-child(4)",
+			"tbody#order_history tr td:nth-child(3)",
+			"tbody#order_history tr td:nth-child(5)",
+			"tbody#my_orders_1 tr td:nth-child(5)",
+			"tbody#my_orders_1 tr td:nth-child(6)"
+		]
 	}
 ]
