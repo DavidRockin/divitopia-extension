@@ -199,7 +199,7 @@ function getTooltip(forceOpen) {
 	tooltip.innerHTML = '<h2 style="font-size:11pt;margin-top:0px;padding-top:0px;">' +
 							'<a href="' + diviURL + '" style="outline:0;text-decoration:none !important;border:0;color:#000" target="_blank">' +
 								'<img src="' + getImage('resources/icon-divi.svg') +
-									'" style="height:9.5pt;max-width:auto;margin-top:-3px;" /> The Divi Project' +
+									'" style="height:9.5pt;max-width:auto;margin-top:-3px; vertical-align: baseline;" /> The Divi Project' +
 						'</a></h2>';
 
 	tooltip.innerHTML += '<div class="tooltip-inner-content"></div>';
@@ -424,6 +424,8 @@ function handleAlertTrigger(e) {
 }
 
 (function() {
+	
+	// fetch configuration data
 	fetchWebdata();
 
 	// update our currencies
@@ -496,7 +498,7 @@ function handleAlertTrigger(e) {
 		if (false === selectors)
 			return;
 
-		// find all elements matching our selectors
+		// find all elements matching our selectors and attach new class to it
 		document.querySelectorAll(selectors).forEach((e) => {
 			// ensure this element has not been marked yet
 			if (!e.classList || e.classList.contains(tooltipId))
@@ -506,7 +508,8 @@ function handleAlertTrigger(e) {
 			e.classList.add(tooltipId);
 		});
 
-		if (specialTriggers instanceof Array) {
+		// find all elements matching our special triggers selectors and attach new class to it
+		if (specialTriggers instanceof Array) {	
 			Object.keys(specialTriggers).forEach((func) => {
 				document.querySelectorAll(specialTriggers[func]).forEach((e) => {
 					// ensure this element has not been marked yet
